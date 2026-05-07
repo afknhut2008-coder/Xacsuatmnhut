@@ -5,26 +5,69 @@
 
 document.addEventListener('input', (e) => {
     const targetId = e.target.id;
-    const errorEl = document.getElementById('msg-error');
-    if(errorEl) errorEl.innerText = ""; // Xóa lỗi cũ khi người dùng nhập mới
+    const errorEl = document.getElementById('prob-error');
+    const okEl = document.getElementById('prob-ok');
+    
+    if (errorEl) errorEl.innerText = ""; 
 
-    // --- 1. LOGIC XÁC SUẤT THƯỜNG ---
+    // --- 1. LOGIC XÁC SUẤT THƯỜNG (probability.html) ---
     if (document.getElementById('pA')) {
-        const pA = parseFloat(document.getElementById('pA').value) || 0;
-        const pB = parseFloat(document.getElementById('pB').value) || 0;
+        let pA = parseFloat(document.getElementById('pA').value) || 0;
+        let pB = parseFloat(document.getElementById('pB').value) || 0;
+        let pAnB = parseFloat(document.getElementById('pAnB').value) || 0;
         const mode = document.querySelector('input[name="mode"]:checked').value;
-        const inAnB = document.getElementById('pAnB');
-        let pAnB = parseFloat(inAnB.value) || 0;
 
-        if (mode === 'xungkhac') { pAnB = 0; inAnB.value = 0; }
-        else if (mode === 'doclap') { pAnB = pA * pB; inAnB.value = smartRound(pAnB); }
+        // Xử lý logic theo chế độ chọn
+        if (mode === 'xungkhac') {
+            pAnB = 0;
+            document.getElementById('pAnB').value = 0;
+        } else if (mode === 'doclap') {
+            pAnB = pA * pB;
+            document.getElementById('pAnB').value = smartRound(pAnB);
+        }
 
-        setVal('resNotA', 1 - pA); 
-        setVal('resNotB', 1 - pB); 
-        setVal('resAorB', pA + pB - pAnB);
+        // Tính toán các giá trị phụ thuộc
+        const pNotA = 1 - pA;
+        const pNotB = 1 - pB;
+        const pAuB = pA + pB - pAnB;
+
+        // Cập nhật ngược lại các ô Input để đồng bộ (nếu người dùng nhập pA thì tự tính pNotA)
+        if (targetId === 'pA') document.getElementById('pNotA').value = smartRound(pNotA);
+        if (targetId === 'pNotA') {
+            pA = 1 - (parseFloat(document.getElementById('pNotA').value) || 0);
+            document.getElementById('pA').value = smartRound(pA);
+        }
+        if (targetId === 'pB') document.getElementById('pNotB').value = smartRound(pNotB);
+        if (targetId === 'pNotB') {
+            pB = 1 - (parseFloat(document.getElementById('pNotB').value) || 0);
+            document.getElementById('pB').value = smartRound(pB);
+        }
+
+        // HIỂN THỊ KẾT QUẢ XUỐNG CÁC BOX (Sửa ID khớp với HTML)
+        setVal('res-pA', pA);
+        setVal('res-pB', pB);
+        setVal('res-pNotA', pNotA);
+        setVal('res-pNotB', pNotB);
+        setVal('res-pAnB', pAnB);
+        setVal('res-pAuB', pAuB);
+        
+        // Các công thức mở rộng
+        setVal('res-pAnBnot', pA - pAnB);          // P(A ∩ B')
+        setVal('res-pNotAnB', pB - pAnB);          // P(A' ∩ B)
+        setVal('res-pNotAnBnot', 1 - pAuB);        // P(A' ∩ B')
+        setVal('res-pAxB', (pA - pAnB) + (pB - pAnB)); // Hiệu xứng
+
+        // Kiểm tra quan hệ thực tế
+        const isXungKhac = pAnB === 0;
+        const isDocLap = Math.abs(pAnB - (pA * pB)) < 1e-6;
+
+        document.getElementById('res-xungkhac').innerText = isXungKhac ? "Có ✅" : "Không ❌";
+        document.getElementById('res-doclap').innerText = isDocLap ? "Có ✅" : "Không ❌";
+        
+        document.getElementById('prob-status').innerText = "Đã cập nhật dữ liệu.";
     }
 
-    // --- 2. LOGIC TẦN SỐ ---
+    // --- 2. LOGIC TẦN SỐ (Giữ nguyên cấu trúc cũ của bạn) ---
     if (document.getElementById('nOmega')) {
         const nO = parseFloat(document.getElementById('nOmega').value) || 0;
         const nA = parseFloat(document.getElementById('nA').value) || 0;
@@ -39,92 +82,31 @@ document.addEventListener('input', (e) => {
             setVal('pU', nU / nO);
         }
     }
-
-    // --- 3. LOGIC ĐIỀU KIỆN (MỤC TỐI ƯU) ---
-    if (document.getElementById('cA')) {
-        let pA = parseFloat(document.getElementById('cA').value) || 0;
-        let pBgA = parseFloat(document.getElementById('cB_A').value) || 0;
-        let pBgNotA = parseFloat(document.getElementById('cB_notA').value) || 0;
-
-        try {
-            if (targetId === 'pAgB_input') {
-                const pAgB_val = parseFloat(e.target.value);
-                if (!isNaN(pAgB_val)) {
-                    const tu = pAgB_val * pBgNotA;
-                    const mau = pBgA - pAgB_val * (pBgA - pBgNotA);
-                    if (Math.abs(mau) > 1e-6) {
-                        pA = Math.max(0, Math.min(1, tu / mau));
-                        syncA(pA);
-                    } else {
-                        throw "Không thể tính ngược (Dữ liệu gây lỗi chia cho 0)";
-                    }
-                }
-            } 
-            else if (targetId === 'pBT_input') {
-                const pB_target = parseFloat(e.target.value);
-                if (!isNaN(pB_target)) {
-                    if (Math.abs(pBgA - pBgNotA) > 1e-6) {
-                        pA = Math.max(0, Math.min(1, (pB_target - pBgNotA) / (pBgA - pBgNotA)));
-                        syncA(pA);
-                    } else {
-                        throw "Không thể tính ngược khi P(B|A) = P(B|A')";
-                    }
-                }
-            } 
-            else {
-                // Nhập liệu thông thường
-                if (targetId === 'cA') syncA(pA, false);
-                if (targetId === 'cNotA') syncA(1 - parseFloat(e.target.value), true);
-                
-                // Tự động bù trừ nhánh B
-                if (targetId === 'cB_A') document.getElementById('cNotB_A').value = smartRound(1 - pBgA);
-                if (targetId === 'cNotB_A') document.getElementById('cB_A').value = smartRound(1 - parseFloat(e.target.value));
-                if (targetId === 'cB_notA') document.getElementById('cNotB_notA').value = smartRound(1 - pBgNotA);
-                if (targetId === 'cNotB_notA') document.getElementById('cB_notA').value = smartRound(1 - parseFloat(e.target.value));
-            }
-
-            // Cập nhật kết quả cuối
-            const pBT = (pA * pBgA) + ((1 - pA) * pBgNotA);
-            const pAgB = pBT > 0 ? (pA * pBgA) / pBT : 0;
-
-            setVal('rAB', pA * pBgA);
-            setVal('rAnBnot', pA * (1 - pBgA));
-            setVal('rnotAB', (1 - pA) * pBgNotA);
-            setVal('rnotAnBnot', (1 - pA) * (1 - pBgNotA));
-
-            if (targetId !== 'pBT_input') document.getElementById('pBT_input').value = smartRound(pBT);
-            if (targetId !== 'pAgB_input') document.getElementById('pAgB_input').value = smartRound(pAgB);
-
-        } catch (err) {
-            if(errorEl) errorEl.innerText = "⚠️ " + err;
-        }
-    }
 });
 
-// Hàm đồng bộ P(A) và P(A')
-function syncA(val, updateMainInput = true) {
-    const v = Math.max(0, Math.min(1, val));
-    if (updateMainInput) document.getElementById('cA').value = smartRound(v);
-    document.getElementById('cNotA').value = smartRound(1 - v);
+/**
+ * Hàm Reset riêng cho trang Xác suất thường
+ */
+function resetProb() {
+    const ids = ['pA', 'pB', 'pAnB', 'pNotA', 'pNotB', 'pAuB'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+    
+    const resSpans = document.querySelectorAll('.val');
+    resSpans.forEach(span => span.innerText = "—");
+    
+    document.getElementById('prob-status').innerText = "Sẵn sàng nhận dữ liệu.";
 }
 
-// Hàm reset sơ đồ
-function resetTree() {
-    const inputs = document.querySelectorAll('input[type="number"]');
-    inputs.forEach(i => i.value = "");
-    const results = document.querySelectorAll('.neon-text, .emerald-text');
-    results.forEach(r => r.innerText = "0");
-    const errorEl = document.getElementById('msg-error');
-    if(errorEl) errorEl.innerText = "";
-}
-
-// Làm tròn thông minh (ví dụ 0.6000 -> 0.6)
 function smartRound(num) {
     return Math.round(num * 10000) / 10000;
 }
 
-// Hiển thị text lên màn hình
 function setVal(id, v) { 
     const el = document.getElementById(id); 
-    if (el) el.innerText = smartRound(v); 
+    if (el) {
+        el.innerText = smartRound(v); 
+    }
 }

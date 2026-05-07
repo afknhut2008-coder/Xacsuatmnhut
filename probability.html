@@ -3,43 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lý Thuyết - MathLab</title>
+    <title>Xác Suất Thường - MathLab 12B2</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 <body>
-    <nav class="glass-nav">
-        <div class="logo">12B2<span>Math</span></div>
-        <ul>
-            <li><a href="index.html">Trang Chủ</a></li>
-            <li><a href="probability.html" class="active">Thường</a></li>
-            <li><a href="frequency.html">Tần Số</a></li>
-            <li><a href="conditional.html">Điều Kiện</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <div class="glass-card">
-            <div class="author-tag">BY MINH NHỰT</div>
-            <h2 class="title-neon">TÍNH THEO CHỈ SỐ \(P\)</h2>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
-                <div class="glass-card">
-                    <div class="input-group"><label>\(P(A)\):</label><input type="number" id="pA" step="0.01"></div>
-                    <div class="input-group"><label>\(P(B)\):</label><input type="number" id="pB" step="0.01"></div>
-                    <div class="input-group"><label>\(P(A \cap B)\):</label><input type="number" id="pAnB" step="0.01"></div>
-                </div>
-                <div class="glass-card" style="text-align:left;">
-                    <label style="display:block; margin:10px 0;"><input type="radio" name="mode" value="none" checked> Tùy biến</label>
-                    <label style="display:block; margin:10px 0;"><input type="radio" name="mode" value="xungkhac"> Xung khắc (\(P \cap = 0\))</label>
-                    <label style="display:block; margin:10px 0;"><input type="radio" name="mode" value="doclap"> Độc lập (\(P \cap = P.P\))</label>
-                </div>
+<nav class="glass-nav">
+    <div class="logo">12B2<span>Math</span></div>
+    <ul>
+        <li><a href="index.html">Trang Chủ</a></li>
+        <li><a href="probability.html" class="active">Lý Thuyết</a></li>
+        <li><a href="frequency.html">Tần Số</a></li>
+        <li><a href="conditional.html">Điều Kiện</a></li>
+    </ul>
+</nav>
+<div class="container">
+<div class="glass-card">
+    <div class="author-tag">BY MINH NHỰT</div>
+    <h2 class="title-neon">XÁC SUẤT LÝ THUYẾT</h2>
+    <p class="title-sub">Nhập bất kỳ giá trị nào — hệ thống tự động suy ra các giá trị còn lại</p>
+
+    <!-- CHẾ ĐỘ -->
+    <div style="margin-bottom:20px;">
+        <span class="sec-label blue">⚙️ Chế Độ Tính</span>
+        <div class="radio-group" style="max-width:500px; margin: 10px auto 0;">
+            <label class="radio-label selected" id="lbl-none">
+                <input type="radio" name="mode" value="none" checked> Tùy biến — Nhập \(P(A \cap B)\) thủ công
+            </label>
+            <label class="radio-label" id="lbl-xk">
+                <input type="radio" name="mode" value="xungkhac"> Xung khắc — \(P(A \cap B) = 0\)
+            </label>
+            <label class="radio-label" id="lbl-dl">
+                <input type="radio" name="mode" value="doclap"> Độc lập — \(P(A \cap B) = P(A) \cdot P(B)\)
+            </label>
+        </div>
+    </div>
+
+    <hr class="neon-divider">
+
+    <!-- NHẬP LIỆU: 6 ô tất cả đều nhập/tính ngược được -->
+    <span class="sec-label blue">📥 Nhập Dữ Liệu (bất kỳ ô nào)</span>
+    <div class="calc-grid" style="max-width:700px; margin: 12px auto;">
+        <div class="calc-field" id="field-pA">
+            <label>\(P(A)\)</label>
+            <input type="number" id="pA" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
+        </div>
+        <div class="calc-field" id="field-pB">
+            <label>\(P(B)\)</label>
+            <input type="number" id="pB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
+        </div>
+        <div class="calc-field" id="field-pAnB">
+            <label>\(P(A \cap B)\)</label>
+            <input type="number" id="pAnB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
+        </div>
+        <div class="calc-field" id="field-pNotA">
+            <label>\(P(A')\) — bù của A</label>
+            <input type="number" id="pNotA" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
+        </div>
+        <div class="calc-field" id="field-pNotB">
+            <label>\(P(B')\) — bù của B</label>
+            <input type="number" id="pNotB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
+        </div>
+        <div class="calc-field" id="field-pAuB">
+            <label>\(P(A \cup B)\) — hợp</label>
+            <input type="number" id="pAuB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
+        </div>
+    </div>
+
+    <!-- THÔNG BÁO -->
+    <div class="msg-error" id="prob-error" style="min-height:1.4em; text-align:center;"></div>
+    <div class="msg-ok"    id="prob-ok"    style="min-height:1.4em; text-align:center; display:none;"></div>
+
+    <hr class="neon-divider">
+
+    <!-- KẾT QUẢ ĐẦY ĐỦ -->
+    <span class="sec-label green">📊 Toàn Bộ Kết Quả</span>
+    <div class="result-grid" style="max-width:800px; margin: 12px auto;">
+        <div class="result-box c-blue active">
+            <small>\(P(A)\)</small>
+            <span class="val c-blue" id="res-pA">—</span>
+        </div>
+        <div class="result-box c-blue">
+            <small>\(P(B)\)</small>
+            <span class="val c-blue" id="res-pB">—</span>
+        </div>
+        <div class="result-box c-pink">
+            <small>\(P(A')\) = 1 − P(A)</small>
+            <span class="val c-pink" id="res-pNotA">—</span>
+        </div>
+        <div class="result-box c-pink">
+            <small>\(P(B')\) = 1 − P(B)</small>
+            <span class="val c-pink" id="res-pNotB">—</span>
+        </div>
+        <div class="result-box c-yellow">
+            <small>\(P(A \cap B)\) — giao</small>
+            <span class="val c-yellow" id="res-pAnB">—</span>
+        </div>
+        <div class="result-box c-green active">
+            <small>\(P(A \cup B)\) — hợp</small>
+            <span class="val c-green" id="res-pAuB">—</span>
+        </div>
+        <div class="result-box c-purple">
+            <small>\(P(A \cap B')\) = P(A) − P(A∩B)</small>
+            <span class="val c-purple" id="res-pAnBnot">—</span>
+        </div>
+        <div class="result-box c-purple">
+            <small>\(P(A' \cap B)\) = P(B) − P(A∩B)</small>
+            <span class="val c-purple" id="res-pNotAnB">—</span>
+        </div>
+        <div class="result-box c-orange">
+            <small>\(P(A' \cap B')\) = 1 − P(A∪B)</small>
+            <span class="val c-orange" id="res-pNotAnBnot">—</span>
+        </div>
+        <div class="result-box c-orange">
+            <small>\(P(A \triangle B)\) — hiệu xứng</small>
+            <span class="val c-orange" id="res-pAxB">—</span>
+        </div>
+    </div>
+
+    <!-- KIỂM TRA ĐỘC LẬP / XUNG KHẮC -->
+    <div class="glass-card" style="border-color:rgba(191,95,255,0.3); margin-top:15px; max-width:700px; margin-left:auto; margin-right:auto;">
+        <span class="sec-label purple">🔍 Kiểm Tra Quan Hệ</span>
+        <div class="result-grid" style="margin-top:10px;">
+            <div class="result-box c-purple">
+                <small>Độc lập? (A∩B = P(A)·P(B))</small>
+                <span class="val c-purple" id="res-doclap" style="font-size:0.95rem;">—</span>
             </div>
-            <div class="tree-row" style="margin-top:20px">
-                <div class="tree-node">\(P(A')\)<span id="resNotA" class="neon-text">0.00</span></div>
-                <div class="tree-node">\(P(B')\)<span id="resNotB" class="neon-text">0.00</span></div>
-                <div class="tree-node" style="border-color:var(--emerald); flex: 1 1 100%;">\(P(A \cup B)\)<span id="resAorB" class="emerald-text">0.0000</span></div>
+            <div class="result-box c-pink">
+                <small>Xung khắc? (A∩B = 0)</small>
+                <span class="val c-pink" id="res-xungkhac" style="font-size:0.95rem;">—</span>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div style="margin-top:20px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+        <button class="btn" onclick="resetProb()">🔄 Làm Mới</button>
+    </div>
+
+    <!-- TRẠNG THÁI -->
+    <div class="status-bar" style="max-width:600px; margin:12px auto 0;">
+        <div class="status-dot active"></div>
+        <span id="prob-status">Sẵn sàng nhận dữ liệu. Nhập bất kỳ ô nào để tính.</span>
+    </div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

@@ -66,20 +66,65 @@
                 </div>
             </div>
 
+            <!-- KẾT QUẢ CHÍNH: Toàn phần + Bayes đầy đủ -->
             <div class="glass-card" style="border-color:var(--emerald); margin-top:20px;">
                 <div id="msg-error" style="color: #ff4444; font-size: 0.85rem; margin-bottom: 10px; min-height: 1.2em;"></div>
-                <div style="display:flex; flex-wrap:wrap; justify-content:space-around; gap:20px;">
-                    <div>
-                        \(P(B)\) Toàn phần:<br>
-                        <input type="number" id="pBT_input" step="0.0001" placeholder="Tính ngược..." 
-                               style="border-color: var(--emerald); color: var(--emerald); font-weight: bold; width: 150px;">
-                    </div>
-                    <div>
-                        \(P(A|B)\) Bayes:<br>
-                        <input type="number" id="pAgB_input" step="0.0001" placeholder="Tính ngược..." 
-                               style="border-color: var(--neon-blue); color: var(--neon-blue); font-weight: bold; width: 150px;">
+
+                <!-- Hàng 1: Xác suất toàn phần -->
+                <div style="margin-bottom: 18px;">
+                    <div style="color: var(--emerald); font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;">📊 XÁC SUẤT TOÀN PHẦN</div>
+                    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
+                        <div style="text-align:center;">
+                            \(P(B)\) — toàn phần:<br>
+                            <input type="number" id="pBT_input" step="0.0001" placeholder="Tính ngược..."
+                                   style="border-color: var(--emerald); color: var(--emerald); font-weight: bold; width: 150px;">
+                        </div>
+                        <div style="text-align:center;">
+                            \(P(B')\) — toàn phần:<br>
+                            <input type="number" id="pBnotT_input" step="0.0001" placeholder="Tính ngược..."
+                                   style="border-color: #94a3b8; color: #94a3b8; font-weight: bold; width: 150px;">
+                        </div>
                     </div>
                 </div>
+
+                <hr style="border-color: var(--border); margin: 15px 0;">
+
+                <!-- Hàng 2: Bayes với B -->
+                <div style="margin-bottom: 18px;">
+                    <div style="color: var(--neon-blue); font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;">🔵 BAYES — BIẾT B ĐÃ XẢY RA</div>
+                    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
+                        <div style="text-align:center;">
+                            \(P(A|B)\) — Bayes:<br>
+                            <input type="number" id="pAgB_input" step="0.0001" placeholder="Tính ngược..."
+                                   style="border-color: var(--neon-blue); color: var(--neon-blue); font-weight: bold; width: 150px;">
+                        </div>
+                        <div style="text-align:center;">
+                            \(P(A'|B)\) — Bayes:<br>
+                            <input type="number" id="pNotAgB_input" step="0.0001" placeholder="Tính ngược..."
+                                   style="border-color: #a78bfa; color: #a78bfa; font-weight: bold; width: 150px;">
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border-color: var(--border); margin: 15px 0;">
+
+                <!-- Hàng 3: Bayes với B' -->
+                <div style="margin-bottom: 18px;">
+                    <div style="color: #f59e0b; font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;">🟡 BAYES — BIẾT B' ĐÃ XẢY RA</div>
+                    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
+                        <div style="text-align:center;">
+                            \(P(A|B')\) — Bayes:<br>
+                            <input type="number" id="pAgBnot_input" step="0.0001" placeholder="Tính ngược..."
+                                   style="border-color: #f59e0b; color: #f59e0b; font-weight: bold; width: 150px;">
+                        </div>
+                        <div style="text-align:center;">
+                            \(P(A'|B')\) — Bayes:<br>
+                            <input type="number" id="pNotAgBnot_input" step="0.0001" placeholder="Tính ngược..."
+                                   style="border-color: #fb923c; color: #fb923c; font-weight: bold; width: 150px;">
+                        </div>
+                    </div>
+                </div>
+
                 <div style="margin-top: 20px;">
                     <button onclick="resetTree()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--border); padding: 8px 20px; border-radius: 10px; cursor: pointer; font-family: inherit;">
                         🔄 Làm mới sơ đồ
