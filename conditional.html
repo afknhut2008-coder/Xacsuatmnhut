@@ -21,44 +21,86 @@
         <div class="glass-card">
             <div class="author-tag">BY MINH NHỰT</div>
             <h2 class="title-neon">SƠ ĐỒ CÂY & XÁC SUẤT NGHỊCH ĐẢO</h2>
-            
+
+            <!-- ĐẶT TÊN BIẾN CỐ -->
+            <div style="margin-bottom:24px;">
+                <span class="sec-label yellow">✏️ Đặt Tên Biến Cố (tùy chọn)</span>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:600px; margin:10px auto 0;">
+                    <div class="calc-field">
+                        <label style="color:var(--neon-blue);">Tên biến cố A</label>
+                        <input type="text" id="name-A" placeholder="vd: học sinh nam" maxlength="30"
+                               style="text-align:left; font-size:0.82rem; color:var(--neon-blue);">
+                    </div>
+                    <div class="calc-field">
+                        <label style="color:#94a3b8;">Tên biến cố A' (bù)</label>
+                        <input type="text" id="name-notA" placeholder="tự tạo nếu để trống" maxlength="30"
+                               style="text-align:left; font-size:0.82rem; color:#94a3b8;">
+                    </div>
+                    <div class="calc-field">
+                        <label style="color:var(--emerald);">Tên biến cố B</label>
+                        <input type="text" id="name-B" placeholder="vd: học sinh giỏi" maxlength="30"
+                               style="text-align:left; font-size:0.82rem; color:var(--emerald);">
+                    </div>
+                    <div class="calc-field">
+                        <label style="color:#6ee7b7;">Tên biến cố B' (bù)</label>
+                        <input type="text" id="name-notB" placeholder="tự tạo nếu để trống" maxlength="30"
+                               style="text-align:left; font-size:0.82rem; color:#6ee7b7;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SƠ ĐỒ CÂY -->
             <div class="tree-wrapper">
-                <div class="tree-node" style="background:var(--neon-blue); color:black; font-weight:bold; width: 120px;">\(\Omega\)</div>
+                <div class="tree-node" style="background:var(--neon-blue); color:black; font-weight:bold; width:120px;">Ω</div>
                 <div class="tree-row">
+                    <!-- NHÁNH A -->
                     <div class="tree-column">
-                        <div style="color:var(--neon-blue); font-weight:bold;">Nhập \(P(A)\)</div>
+                        <div id="lbl-cA" style="color:var(--neon-blue); font-weight:bold;">Nhập P(A)</div>
                         <input type="number" id="cA" placeholder="0.00" step="0.0001" onfocus="this.select()">
                         <div class="tree-node">
-                            <small>Biến cố \(A\)</small>
+                            <small id="lbl-node-A">Biến cố "A"</small>
                             <div style="display:flex; gap:10px; margin-top:15px;">
-                                <div style="flex:1">
-                                    <small>\(P(B|A)\)</small><br>
+                                <div style="flex:1; text-align:center;">
+                                    <small id="lbl-cB_A">P(B|A)</small><br>
                                     <input type="number" id="cB_A" style="width:90px" step="0.0001" onfocus="this.select()">
-                                    <small class="neon-text" id="rAB">0</small>
+                                    <div style="margin-top:6px;">
+                                        <small id="lbl-rAB" style="font-size:0.65rem; color:#64748b;">P(A∩B)</small><br>
+                                        <small class="neon-text" id="rAB">0</small>
+                                    </div>
                                 </div>
-                                <div style="flex:1">
-                                    <small>\(P(B'|A)\)</small><br>
+                                <div style="flex:1; text-align:center;">
+                                    <small id="lbl-cNotB_A">P(B'|A)</small><br>
                                     <input type="number" id="cNotB_A" style="width:90px" step="0.0001" onfocus="this.select()">
-                                    <small class="neon-text" id="rAnBnot">0</small>
+                                    <div style="margin-top:6px;">
+                                        <small id="lbl-rAnBnot" style="font-size:0.65rem; color:#64748b;">P(A∩B')</small><br>
+                                        <small class="neon-text" id="rAnBnot">0</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- NHÁNH A' -->
                     <div class="tree-column">
-                        <div style="color:#94a3b8; font-weight:bold;">Nhập \(P(A')\)</div>
+                        <div id="lbl-cNotA" style="color:#94a3b8; font-weight:bold;">Nhập P(A')</div>
                         <input type="number" id="cNotA" placeholder="0.00" step="0.0001" onfocus="this.select()">
                         <div class="tree-node">
-                            <small>Biến cố \(A'\)</small>
+                            <small id="lbl-node-nA">Biến cố "A'"</small>
                             <div style="display:flex; gap:10px; margin-top:15px;">
-                                <div style="flex:1">
-                                    <small>\(P(B|A')\)</small><br>
+                                <div style="flex:1; text-align:center;">
+                                    <small id="lbl-cB_notA">P(B|A')</small><br>
                                     <input type="number" id="cB_notA" style="width:90px" step="0.0001" onfocus="this.select()">
-                                    <small class="neon-text" id="rnotAB">0</small>
+                                    <div style="margin-top:6px;">
+                                        <small id="lbl-rnotAB" style="font-size:0.65rem; color:#64748b;">P(A'∩B)</small><br>
+                                        <small class="neon-text" id="rnotAB">0</small>
+                                    </div>
                                 </div>
-                                <div style="flex:1">
-                                    <small>\(P(B'|A')\)</small><br>
+                                <div style="flex:1; text-align:center;">
+                                    <small id="lbl-cNotB_notA">P(B'|A')</small><br>
                                     <input type="number" id="cNotB_notA" style="width:90px" step="0.0001" onfocus="this.select()">
-                                    <small class="neon-text" id="rnotAnBnot">0</small>
+                                    <div style="margin-top:6px;">
+                                        <small id="lbl-rnotAnBnot" style="font-size:0.65rem; color:#64748b;">P(A'∩B')</small><br>
+                                        <small class="neon-text" id="rnotAnBnot">0</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -66,73 +108,236 @@
                 </div>
             </div>
 
-            <!-- KẾT QUẢ CHÍNH: Toàn phần + Bayes đầy đủ -->
+            <!-- KẾT QUẢ -->
             <div class="glass-card" style="border-color:var(--emerald); margin-top:20px;">
-                <div id="msg-error" style="color: #ff4444; font-size: 0.85rem; margin-bottom: 10px; min-height: 1.2em;"></div>
+                <div id="msg-error" style="color:#ff4444; font-size:0.85rem; margin-bottom:10px; min-height:1.2em;"></div>
 
-                <!-- Hàng 1: Xác suất toàn phần -->
-                <div style="margin-bottom: 18px;">
-                    <div style="color: var(--emerald); font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;">📊 XÁC SUẤT TOÀN PHẦN</div>
+                <!-- Toàn phần -->
+                <div style="margin-bottom:18px;">
+                    <div style="color:var(--emerald); font-weight:bold; margin-bottom:10px; font-size:0.9rem; letter-spacing:1px;">
+                        📊 XÁC SUẤT TOÀN PHẦN
+                    </div>
                     <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
                         <div style="text-align:center;">
-                            \(P(B)\) — toàn phần:<br>
+                            <span id="lbl-pBT">P(B) — toàn phần:</span><br>
                             <input type="number" id="pBT_input" step="0.0001" placeholder="Tính ngược..."
-                                   style="border-color: var(--emerald); color: var(--emerald); font-weight: bold; width: 150px;">
+                                   style="border-color:var(--emerald); color:var(--emerald); font-weight:bold; width:150px;" readonly>
                         </div>
                         <div style="text-align:center;">
-                            \(P(B')\) — toàn phần:<br>
+                            <span id="lbl-pBnotT">P(B') — toàn phần:</span><br>
                             <input type="number" id="pBnotT_input" step="0.0001" placeholder="Tính ngược..."
-                                   style="border-color: #94a3b8; color: #94a3b8; font-weight: bold; width: 150px;">
+                                   style="border-color:#94a3b8; color:#94a3b8; font-weight:bold; width:150px;" readonly>
                         </div>
                     </div>
                 </div>
 
-                <hr style="border-color: var(--border); margin: 15px 0;">
+                <hr style="border-color:var(--border); margin:15px 0;">
 
-                <!-- Hàng 2: Bayes với B -->
-                <div style="margin-bottom: 18px;">
-                    <div style="color: var(--neon-blue); font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;">🔵 BAYES — BIẾT B ĐÃ XẢY RA</div>
+                <!-- Bayes với B -->
+                <div style="margin-bottom:18px;">
+                    <div id="lbl-bayes-B" style="color:var(--neon-blue); font-weight:bold; margin-bottom:10px; font-size:0.9rem; letter-spacing:1px;">
+                        🔵 BAYES — BIẾT B ĐÃ XẢY RA
+                    </div>
                     <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
                         <div style="text-align:center;">
-                            \(P(A|B)\) — Bayes:<br>
+                            <span id="lbl-pAgB">P(A|B) — Bayes:</span><br>
                             <input type="number" id="pAgB_input" step="0.0001" placeholder="Tính ngược..."
-                                   style="border-color: var(--neon-blue); color: var(--neon-blue); font-weight: bold; width: 150px;">
+                                   style="border-color:var(--neon-blue); color:var(--neon-blue); font-weight:bold; width:150px;" readonly>
                         </div>
                         <div style="text-align:center;">
-                            \(P(A'|B)\) — Bayes:<br>
+                            <span id="lbl-pNotAgB">P(A'|B) — Bayes:</span><br>
                             <input type="number" id="pNotAgB_input" step="0.0001" placeholder="Tính ngược..."
-                                   style="border-color: #a78bfa; color: #a78bfa; font-weight: bold; width: 150px;">
+                                   style="border-color:#a78bfa; color:#a78bfa; font-weight:bold; width:150px;" readonly>
                         </div>
                     </div>
                 </div>
 
-                <hr style="border-color: var(--border); margin: 15px 0;">
+                <hr style="border-color:var(--border); margin:15px 0;">
 
-                <!-- Hàng 3: Bayes với B' -->
-                <div style="margin-bottom: 18px;">
-                    <div style="color: #f59e0b; font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;">🟡 BAYES — BIẾT B' ĐÃ XẢY RA</div>
+                <!-- Bayes với B' -->
+                <div style="margin-bottom:18px;">
+                    <div id="lbl-bayes-Bnot" style="color:#f59e0b; font-weight:bold; margin-bottom:10px; font-size:0.9rem; letter-spacing:1px;">
+                        🟡 BAYES — BIẾT B' ĐÃ XẢY RA
+                    </div>
                     <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
                         <div style="text-align:center;">
-                            \(P(A|B')\) — Bayes:<br>
+                            <span id="lbl-pAgBnot">P(A|B') — Bayes:</span><br>
                             <input type="number" id="pAgBnot_input" step="0.0001" placeholder="Tính ngược..."
-                                   style="border-color: #f59e0b; color: #f59e0b; font-weight: bold; width: 150px;">
+                                   style="border-color:#f59e0b; color:#f59e0b; font-weight:bold; width:150px;" readonly>
                         </div>
                         <div style="text-align:center;">
-                            \(P(A'|B')\) — Bayes:<br>
+                            <span id="lbl-pNotAgBnot">P(A'|B') — Bayes:</span><br>
                             <input type="number" id="pNotAgBnot_input" step="0.0001" placeholder="Tính ngược..."
-                                   style="border-color: #fb923c; color: #fb923c; font-weight: bold; width: 150px;">
+                                   style="border-color:#fb923c; color:#fb923c; font-weight:bold; width:150px;" readonly>
                         </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 20px;">
-                    <button onclick="resetTree()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--border); padding: 8px 20px; border-radius: 10px; cursor: pointer; font-family: inherit;">
+                <div style="margin-top:20px;">
+                    <button onclick="resetTree()" style="background:rgba(255,255,255,0.1); color:white; border:1px solid var(--border); padding:8px 20px; border-radius:10px; cursor:pointer; font-family:inherit;">
                         🔄 Làm mới sơ đồ
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
+<!-- CHEAT SHEET TOGGLE -->
+<button class="cs-toggle-btn" onclick="toggleCS()" aria-label="Mở Cheat Sheet">
+    <span class="cs-icon">📐</span>CÔNG THỨC
+</button>
+
+<!-- OVERLAY -->
+<div class="cs-overlay" id="cs-overlay" onclick="toggleCS()"></div>
+
+<!-- CHEAT SHEET SIDEBAR -->
+<div class="cs-sidebar" id="cs-sidebar">
+    <div class="cs-header">
+        <h3>📐 CHEAT SHEET</h3>
+        <button class="cs-close" onclick="toggleCS()">✕</button>
+    </div>
+
+    <!-- SECTION 1: Xác suất toàn phần -->
+    <div class="cs-section" id="cs-s1">
+        <div class="cs-section-header c-green" onclick="toggleSection('cs-s1')">
+            🟢 XÁC SUẤT TOÀN PHẦN
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Công thức xác suất toàn phần</span>
+                <div class="cs-f-math">
+                    <span class="hi-green">P(B)</span> = <span class="hi-blue">P(A)</span>·<span class="hi-yellow">P(B|A)</span> + <span class="hi-pink">P(A')</span>·<span class="hi-yellow">P(B|A')</span>
+                </div>
+                <div class="cs-f-note">B phụ thuộc vào A — tổng hợp qua tất cả nhánh dẫn đến B.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Khai triển từng nhánh</span>
+                <div class="cs-f-math">
+                    <span class="hi-yellow">P(A∩B)</span> = <span class="hi-blue">P(A)</span> × <span class="hi-yellow">P(B|A)</span><br>
+                    <span class="hi-yellow">P(A'∩B)</span> = <span class="hi-pink">P(A')</span> × <span class="hi-yellow">P(B|A')</span>
+                </div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Tổng kiểm tra</span>
+                <div class="cs-f-math">
+                    <span class="hi-green">P(B)</span> + <span class="hi-orange">P(B')</span> = 1
+                </div>
+                <div class="cs-f-note">Toàn bộ xác suất phải bằng 1 (kiểm tra tính đúng).</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Định lý Bayes -->
+    <div class="cs-section" id="cs-s2">
+        <div class="cs-section-header c-blue" onclick="toggleSection('cs-s2')">
+            🔵 ĐỊNH LÝ BAYES (BAYES' THEOREM)
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Bayes — biết B đã xảy ra</span>
+                <div class="cs-f-math">
+                    <span class="hi-blue">P(A|B)</span> = <span class="hi-yellow">P(A∩B)</span> / <span class="hi-green">P(B)</span>
+                </div>
+                <div class="cs-f-note">Xác suất A xảy ra khi đã biết B xảy ra. "Nhìn ngược" từ kết quả.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Bayes — biết B' đã xảy ra</span>
+                <div class="cs-f-math">
+                    <span class="hi-blue">P(A|B')</span> = <span class="hi-yellow">P(A∩B')</span> / <span class="hi-orange">P(B')</span>
+                </div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Kiểm tra tổng Bayes</span>
+                <div class="cs-f-math">
+                    <span class="hi-blue">P(A|B)</span> + <span class="hi-pink">P(A'|B)</span> = 1
+                </div>
+                <div class="cs-f-note">Với mỗi điều kiện, tổng xác suất các nhánh phải bằng 1.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Xác suất có điều kiện -->
+    <div class="cs-section" id="cs-s3">
+        <div class="cs-section-header c-yellow" onclick="toggleSection('cs-s3')">
+            🟡 XÁC SUẤT CÓ ĐIỀU KIỆN
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Định nghĩa P(B|A)</span>
+                <div class="cs-f-math">
+                    <span class="hi-yellow">P(B|A)</span> = <span class="hi-yellow">P(A∩B)</span> / <span class="hi-blue">P(A)</span>
+                </div>
+                <div class="cs-f-note">Xác suất B xảy ra trong không gian thu hẹp khi A đã xảy ra.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Tổng xác suất có điều kiện</span>
+                <div class="cs-f-math">
+                    <span class="hi-yellow">P(B|A)</span> + <span class="hi-yellow">P(B'|A)</span> = 1<br>
+                    <span class="hi-yellow">P(B|A')</span> + <span class="hi-yellow">P(B'|A')</span> = 1
+                </div>
+                <div class="cs-f-note">Mỗi nhánh trong sơ đồ cây phải có tổng bằng 1.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: Quy trình giải -->
+    <div class="cs-section" id="cs-s4">
+        <div class="cs-section-header c-purple" onclick="toggleSection('cs-s4')">
+            🟣 QUY TRÌNH GIẢI BÀI TOÁN
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Bước 1 — Nhập P(A) và P(A')</span>
+                <div class="cs-f-math">Phân chia không gian mẫu Ω thành A và A'</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Bước 2 — Nhập xác suất có điều kiện</span>
+                <div class="cs-f-math">P(B|A), P(B'|A), P(B|A'), P(B'|A')</div>
+                <div class="cs-f-note">Mỗi cặp trong cùng nhánh phải cộng bằng 1.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Bước 3 — Tính tích các nhánh</span>
+                <div class="cs-f-math">P(A∩B) = P(A) · P(B|A)</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Bước 4 — Áp dụng Bayes</span>
+                <div class="cs-f-math">P(A|B) = P(A∩B) / P(B)</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin: 20px 16px; padding: 12px; background: rgba(16,185,129,0.05); border-radius: 10px; border: 1px solid rgba(16,185,129,0.15);">
+        <p style="font-size:0.68rem; color: var(--text-mid); font-family: var(--font-viet); line-height: 1.6;">
+            💡 <strong style="color:var(--emerald);">Mẹo:</strong> Di chuột vào từng ô nhập liệu trên sơ đồ cây để xem giải thích về từng xác suất.
+        </p>
+    </div>
+</div>
+
+<!-- FIELD TOOLTIP -->
+<div class="field-tooltip" id="field-tooltip">
+    <div class="field-tooltip-inner">
+        <span class="tt-label" id="tt-label"></span>
+        <span class="tt-desc"  id="tt-desc"></span>
+        <span class="tt-formula" id="tt-formula" style="display:none;"></span>
+    </div>
+</div>
+
     <script src="script.js"></script>
+<script>
+// ======== CHEAT SHEET + TOOLTIP (conditional.html) ========
+const COND_TOOLTIPS = {
+    'cA':          { label:'P(A)', desc:'Xác suất biến cố A xảy ra. Đây là nhánh gốc bên trái của sơ đồ cây.', formula:'P(A) + P(A\') = 1' },
+    'cNotA':       { label:"P(A') — Bù của A", desc:"Xác suất biến cố đối của A (A không xảy ra). Nhánh gốc bên phải.", formula:"P(A') = 1 − P(A)" },
+    'cB_A':        { label:'P(B|A) — Xác suất có điều kiện', desc:'Xác suất B xảy ra khi đã biết A xảy ra. Nhánh trên của A trong sơ đồ cây.', formula:'P(B|A) + P(B\'|A) = 1' },
+    'cNotB_A':     { label:"P(B'|A) — Xác suất có điều kiện", desc:"Xác suất B KHÔNG xảy ra khi đã biết A xảy ra. Nhánh dưới của A.", formula:"P(B'|A) = 1 − P(B|A)" },
+    'cB_notA':     { label:"P(B|A') — Xác suất có điều kiện", desc:"Xác suất B xảy ra khi đã biết A KHÔNG xảy ra. Nhánh trên của A'.", formula:"P(B|A') + P(B'|A') = 1" },
+    'cNotB_notA':  { label:"P(B'|A') — Xác suất có điều kiện", desc:"Xác suất B KHÔNG xảy ra khi A cũng không xảy ra. Nhánh dưới của A'.", formula:"P(B'|A') = 1 − P(B|A')" },
+};
+initTooltips(COND_TOOLTIPS);
+</script>
 </body>
 </html>

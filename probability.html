@@ -23,49 +23,76 @@
     <h2 class="title-neon">XÁC SUẤT LÝ THUYẾT</h2>
     <p class="title-sub">Nhập bất kỳ giá trị nào — hệ thống tự động suy ra các giá trị còn lại</p>
 
+    <!-- ĐẶT TÊN BIẾN CỐ -->
+    <div style="margin-bottom:24px;">
+        <span class="sec-label yellow">✏️ Đặt Tên Biến Cố (tùy chọn)</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:600px; margin:10px auto 0;">
+            <div class="calc-field">
+                <label style="color:var(--neon-blue);">Tên biến cố A</label>
+                <input type="text" id="name-A" placeholder="vd: học sinh nam" maxlength="30"
+                       style="text-align:left; font-size:0.82rem; color:var(--neon-blue);">
+            </div>
+            <div class="calc-field">
+                <label style="color:#94a3b8;">Tên biến cố A' (bù)</label>
+                <input type="text" id="name-notA" placeholder="tự tạo nếu để trống" maxlength="30"
+                       style="text-align:left; font-size:0.82rem; color:#94a3b8;">
+            </div>
+            <div class="calc-field">
+                <label style="color:var(--emerald);">Tên biến cố B</label>
+                <input type="text" id="name-B" placeholder="vd: học sinh giỏi" maxlength="30"
+                       style="text-align:left; font-size:0.82rem; color:var(--emerald);">
+            </div>
+            <div class="calc-field">
+                <label style="color:#6ee7b7;">Tên biến cố B' (bù)</label>
+                <input type="text" id="name-notB" placeholder="tự tạo nếu để trống" maxlength="30"
+                       style="text-align:left; font-size:0.82rem; color:#6ee7b7;">
+            </div>
+        </div>
+    </div>
+
     <!-- CHẾ ĐỘ -->
     <div style="margin-bottom:20px;">
         <span class="sec-label blue">⚙️ Chế Độ Tính</span>
         <div class="radio-group" style="max-width:500px; margin: 10px auto 0;">
             <label class="radio-label selected" id="lbl-none">
-                <input type="radio" name="mode" value="none" checked> Tùy biến — Nhập \(P(A \cap B)\) thủ công
+                <input type="radio" name="mode" value="none" checked> Tùy biến — Nhập P(A ∩ B) thủ công
             </label>
             <label class="radio-label" id="lbl-xk">
-                <input type="radio" name="mode" value="xungkhac"> Xung khắc — \(P(A \cap B) = 0\)
+                <input type="radio" name="mode" value="xungkhac"> Xung khắc — P(A ∩ B) = 0
             </label>
             <label class="radio-label" id="lbl-dl">
-                <input type="radio" name="mode" value="doclap"> Độc lập — \(P(A \cap B) = P(A) \cdot P(B)\)
+                <input type="radio" name="mode" value="doclap"> Độc lập — P(A ∩ B) = P(A) · P(B)
             </label>
         </div>
     </div>
 
     <hr class="neon-divider">
 
-    <!-- NHẬP LIỆU: 6 ô tất cả đều nhập/tính ngược được -->
+    <!-- NHẬP LIỆU -->
     <span class="sec-label blue">📥 Nhập Dữ Liệu (bất kỳ ô nào)</span>
     <div class="calc-grid" style="max-width:700px; margin: 12px auto;">
         <div class="calc-field" id="field-pA">
-            <label>\(P(A)\)</label>
+            <label id="lbl-pA">P(A)</label>
             <input type="number" id="pA" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
         </div>
         <div class="calc-field" id="field-pB">
-            <label>\(P(B)\)</label>
+            <label id="lbl-pB">P(B)</label>
             <input type="number" id="pB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
         </div>
         <div class="calc-field" id="field-pAnB">
-            <label>\(P(A \cap B)\)</label>
+            <label id="lbl-pAnB">P(A ∩ B)</label>
             <input type="number" id="pAnB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
         </div>
         <div class="calc-field" id="field-pNotA">
-            <label>\(P(A')\) — bù của A</label>
+            <label id="lbl-pNotA">P(A') — bù của A</label>
             <input type="number" id="pNotA" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
         </div>
         <div class="calc-field" id="field-pNotB">
-            <label>\(P(B')\) — bù của B</label>
+            <label id="lbl-pNotB">P(B') — bù của B</label>
             <input type="number" id="pNotB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
         </div>
         <div class="calc-field" id="field-pAuB">
-            <label>\(P(A \cup B)\) — hợp</label>
+            <label id="lbl-pAuB">P(A ∪ B) — hợp</label>
             <input type="number" id="pAuB" step="0.0001" min="0" max="1" placeholder="0.0000" onfocus="this.select()">
         </div>
     </div>
@@ -76,61 +103,61 @@
 
     <hr class="neon-divider">
 
-    <!-- KẾT QUẢ ĐẦY ĐỦ -->
+    <!-- KẾT QUẢ -->
     <span class="sec-label green">📊 Toàn Bộ Kết Quả</span>
     <div class="result-grid" style="max-width:800px; margin: 12px auto;">
         <div class="result-box c-blue active">
-            <small>\(P(A)\)</small>
+            <small id="res-lbl-pA">P(A)</small>
             <span class="val c-blue" id="res-pA">—</span>
         </div>
         <div class="result-box c-blue">
-            <small>\(P(B)\)</small>
+            <small id="res-lbl-pB">P(B)</small>
             <span class="val c-blue" id="res-pB">—</span>
         </div>
         <div class="result-box c-pink">
-            <small>\(P(A')\) = 1 − P(A)</small>
+            <small id="res-lbl-pNotA">P(A') = 1 − P(A)</small>
             <span class="val c-pink" id="res-pNotA">—</span>
         </div>
         <div class="result-box c-pink">
-            <small>\(P(B')\) = 1 − P(B)</small>
+            <small id="res-lbl-pNotB">P(B') = 1 − P(B)</small>
             <span class="val c-pink" id="res-pNotB">—</span>
         </div>
         <div class="result-box c-yellow">
-            <small>\(P(A \cap B)\) — giao</small>
+            <small id="res-lbl-pAnB">P(A ∩ B) — giao</small>
             <span class="val c-yellow" id="res-pAnB">—</span>
         </div>
         <div class="result-box c-green active">
-            <small>\(P(A \cup B)\) — hợp</small>
+            <small id="res-lbl-pAuB">P(A ∪ B) — hợp</small>
             <span class="val c-green" id="res-pAuB">—</span>
         </div>
         <div class="result-box c-purple">
-            <small>\(P(A \cap B')\) = P(A) − P(A∩B)</small>
+            <small id="res-lbl-pAnBnot">P(A ∩ B') = P(A) − P(A∩B)</small>
             <span class="val c-purple" id="res-pAnBnot">—</span>
         </div>
         <div class="result-box c-purple">
-            <small>\(P(A' \cap B)\) = P(B) − P(A∩B)</small>
+            <small id="res-lbl-pNotAnB">P(A' ∩ B) = P(B) − P(A∩B)</small>
             <span class="val c-purple" id="res-pNotAnB">—</span>
         </div>
         <div class="result-box c-orange">
-            <small>\(P(A' \cap B')\) = 1 − P(A∪B)</small>
+            <small id="res-lbl-pNotAnBnot">P(A' ∩ B') = 1 − P(A∪B)</small>
             <span class="val c-orange" id="res-pNotAnBnot">—</span>
         </div>
         <div class="result-box c-orange">
-            <small>\(P(A \triangle B)\) — hiệu xứng</small>
+            <small id="res-lbl-pAxB">P(A △ B) — hiệu xứng</small>
             <span class="val c-orange" id="res-pAxB">—</span>
         </div>
     </div>
 
-    <!-- KIỂM TRA ĐỘC LẬP / XUNG KHẮC -->
+    <!-- KIỂM TRA -->
     <div class="glass-card" style="border-color:rgba(191,95,255,0.3); margin-top:15px; max-width:700px; margin-left:auto; margin-right:auto;">
         <span class="sec-label purple">🔍 Kiểm Tra Quan Hệ</span>
         <div class="result-grid" style="margin-top:10px;">
             <div class="result-box c-purple">
-                <small>Độc lập? (A∩B = P(A)·P(B))</small>
+                <small id="res-lbl-doclap">Độc lập? (A∩B = P(A)·P(B))</small>
                 <span class="val c-purple" id="res-doclap" style="font-size:0.95rem;">—</span>
             </div>
             <div class="result-box c-pink">
-                <small>Xung khắc? (A∩B = 0)</small>
+                <small id="res-lbl-xungkhac">Xung khắc? (A∩B = 0)</small>
                 <span class="val c-pink" id="res-xungkhac" style="font-size:0.95rem;">—</span>
             </div>
         </div>
@@ -140,13 +167,161 @@
         <button class="btn" onclick="resetProb()">🔄 Làm Mới</button>
     </div>
 
-    <!-- TRẠNG THÁI -->
     <div class="status-bar" style="max-width:600px; margin:12px auto 0;">
         <div class="status-dot active"></div>
         <span id="prob-status">Sẵn sàng nhận dữ liệu. Nhập bất kỳ ô nào để tính.</span>
     </div>
 </div>
 </div>
+
+<!-- CHEAT SHEET TOGGLE -->
+<button class="cs-toggle-btn" onclick="toggleCS()" aria-label="Mở Cheat Sheet">
+    <span class="cs-icon">📐</span>CÔNG THỨC
+</button>
+
+<!-- OVERLAY -->
+<div class="cs-overlay" id="cs-overlay" onclick="toggleCS()"></div>
+
+<!-- CHEAT SHEET SIDEBAR -->
+<div class="cs-sidebar" id="cs-sidebar">
+    <div class="cs-header">
+        <h3>📐 CHEAT SHEET</h3>
+        <button class="cs-close" onclick="toggleCS()">✕</button>
+    </div>
+
+    <!-- SECTION 1: Biến cố bù -->
+    <div class="cs-section" id="cs-s1">
+        <div class="cs-section-header c-blue" onclick="toggleSection('cs-s1')">
+            🔵 BIẾN CỐ BÙ (COMPLEMENTARY)
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Xác suất bù</span>
+                <div class="cs-f-math"><span class="hi-pink">P(A')</span> = 1 − <span class="hi-blue">P(A)</span></div>
+                <div class="cs-f-note">A và A' là hai biến cố đối nhau, luôn có tổng bằng 1.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Tổng toàn phần</span>
+                <div class="cs-f-math"><span class="hi-blue">P(A)</span> + <span class="hi-pink">P(A')</span> = 1</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Hợp & Giao -->
+    <div class="cs-section" id="cs-s2">
+        <div class="cs-section-header c-green" onclick="toggleSection('cs-s2')">
+            🟢 HỢP & GIAO (UNION & INTERSECTION)
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Xác suất hợp (Cộng)</span>
+                <div class="cs-f-math"><span class="hi-green">P(A∪B)</span> = <span class="hi-blue">P(A)</span> + <span class="hi-blue">P(B)</span> − <span class="hi-yellow">P(A∩B)</span></div>
+                <div class="cs-f-note">Công thức cộng xác suất tổng quát.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Suy ra giao từ hợp</span>
+                <div class="cs-f-math"><span class="hi-yellow">P(A∩B)</span> = <span class="hi-blue">P(A)</span> + <span class="hi-blue">P(B)</span> − <span class="hi-green">P(A∪B)</span></div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Phần chỉ A (không B)</span>
+                <div class="cs-f-math"><span class="hi-purple">P(A∩B')</span> = <span class="hi-blue">P(A)</span> − <span class="hi-yellow">P(A∩B)</span></div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Phần chỉ B (không A)</span>
+                <div class="cs-f-math"><span class="hi-purple">P(A'∩B)</span> = <span class="hi-blue">P(B)</span> − <span class="hi-yellow">P(A∩B)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Xung khắc -->
+    <div class="cs-section" id="cs-s3">
+        <div class="cs-section-header c-pink" onclick="toggleSection('cs-s3')">
+            🔴 XUNG KHẮC (MUTUALLY EXCLUSIVE)
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Điều kiện xung khắc</span>
+                <div class="cs-f-math"><span class="hi-yellow">P(A∩B)</span> = <span class="hi-pink">0</span></div>
+                <div class="cs-f-note">A và B không thể cùng xảy ra.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Hợp khi xung khắc</span>
+                <div class="cs-f-math"><span class="hi-green">P(A∪B)</span> = <span class="hi-blue">P(A)</span> + <span class="hi-blue">P(B)</span></div>
+                <div class="cs-f-note">Khi xung khắc, P(A∩B)=0 nên đơn giản hóa.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: Độc lập -->
+    <div class="cs-section" id="cs-s4">
+        <div class="cs-section-header c-yellow" onclick="toggleSection('cs-s4')">
+            🟡 ĐỘC LẬP (INDEPENDENT)
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Điều kiện độc lập</span>
+                <div class="cs-f-math"><span class="hi-yellow">P(A∩B)</span> = <span class="hi-blue">P(A)</span> × <span class="hi-blue">P(B)</span></div>
+                <div class="cs-f-note">A không ảnh hưởng đến xác suất của B và ngược lại.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Kiểm tra độc lập</span>
+                <div class="cs-f-math">So sánh <span class="hi-yellow">P(A∩B)</span> với <span class="hi-blue">P(A)</span>·<span class="hi-blue">P(B)</span></div>
+                <div class="cs-f-note">Nếu bằng nhau (sai số &lt; 0.0001) → Độc lập ✅</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: Hiệu xứng -->
+    <div class="cs-section" id="cs-s5">
+        <div class="cs-section-header c-orange" onclick="toggleSection('cs-s5')">
+            🟠 HIỆU XỨNG (SYMMETRIC DIFFERENCE)
+            <span class="cs-chevron">▼</span>
+        </div>
+        <div class="cs-section-body">
+            <div class="cs-formula">
+                <span class="cs-f-name">Hiệu xứng A△B</span>
+                <div class="cs-f-math"><span class="hi-orange">P(A△B)</span> = <span class="hi-green">P(A∪B)</span> − <span class="hi-yellow">P(A∩B)</span></div>
+                <div class="cs-f-note">Phần thuộc A hoặc B nhưng không thuộc cả hai.</div>
+            </div>
+            <div class="cs-formula">
+                <span class="cs-f-name">Cách tính khác</span>
+                <div class="cs-f-math"><span class="hi-orange">P(A△B)</span> = <span class="hi-purple">P(A∩B')</span> + <span class="hi-purple">P(A'∩B)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin: 20px 16px; padding: 12px; background: rgba(0,242,255,0.04); border-radius: 10px; border: 1px solid rgba(0,242,255,0.1);">
+        <p style="font-size:0.68rem; color: var(--text-mid); font-family: var(--font-viet); line-height: 1.6;">
+            💡 <strong style="color:var(--neon-blue);">Mẹo:</strong> Di chuột vào từng ô nhập liệu để xem giải thích chi tiết về từng đại lượng.
+        </p>
+    </div>
+</div>
+
+<!-- FIELD TOOLTIP -->
+<div class="field-tooltip" id="field-tooltip">
+    <div class="field-tooltip-inner">
+        <span class="tt-label" id="tt-label"></span>
+        <span class="tt-desc"  id="tt-desc"></span>
+        <span class="tt-formula" id="tt-formula" style="display:none;"></span>
+    </div>
+</div>
+
 <script src="script.js"></script>
+<script>
+// ======== CHEAT SHEET + TOOLTIP (probability.html) ========
+const PROB_TOOLTIPS = {
+    'pA':     { label:'P(A)', desc:'Xác suất biến cố A xảy ra. Giá trị từ 0 đến 1.', formula:'0 ≤ P(A) ≤ 1' },
+    'pB':     { label:'P(B)', desc:'Xác suất biến cố B xảy ra. Giá trị từ 0 đến 1.', formula:'0 ≤ P(B) ≤ 1' },
+    'pNotA':  { label:"P(A') — Bù của A", desc:"Xác suất biến cố đối của A (A không xảy ra). Bằng 1 trừ P(A).", formula:"P(A') = 1 − P(A)" },
+    'pNotB':  { label:"P(B') — Bù của B", desc:"Xác suất biến cố đối của B (B không xảy ra).", formula:"P(B') = 1 − P(B)" },
+    'pAnB':   { label:'P(A∩B) — Giao', desc:'Xác suất cả hai biến cố A và B cùng xảy ra (phần chung).', formula:'P(A∩B) = P(A)·P(B) nếu độc lập; = 0 nếu xung khắc' },
+    'pAuB':   { label:'P(A∪B) — Hợp', desc:'Xác suất ít nhất một trong hai biến cố A hoặc B xảy ra.', formula:'P(A∪B) = P(A) + P(B) − P(A∩B)' },
+};
+initTooltips(PROB_TOOLTIPS);
+</script>
 </body>
 </html>
