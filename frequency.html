@@ -3,59 +3,839 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tần Số - MathLab</title>
+    <title>Tần Số - MathLab 12B2</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+    /* ===== NI SECTION ===== */
+    .ni-section-prob { margin-bottom:24px; padding:18px 20px 14px; background:rgba(0,0,0,.15); border:1px solid rgba(255,229,0,.12); border-radius:18px; animation:niSlideIn .5s cubic-bezier(.34,1.56,.64,1) both; }
+    @keyframes niSlideIn { from{opacity:0;transform:translateY(-10px) scale(.98)} to{opacity:1;transform:translateY(0) scale(1)} }
+    .ni-section-prob .ni-header { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .ni-section-prob .ni-title  { font-family:var(--font-orb); font-size:.74rem; letter-spacing:2px; color:var(--neon-yellow); white-space:nowrap; }
+    .ni-section-prob .ni-line   { flex:1; height:1px; }
+    .ni-section-prob .ni-hint   { font-size:.63rem; color:#475569; font-family:var(--font-viet); white-space:nowrap; }
+    .ni-section-prob .ni-grid   { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+    @media(max-width:520px){ .ni-section-prob .ni-grid { grid-template-columns:1fr; } }
+    .ni-section-prob .ni-field-label { font-size:.66rem; color:var(--text-mid); margin-bottom:5px; padding-left:4px; font-family:var(--font-viet); }
+    .ni-section-prob .ni-field-label em { font-style:italic; color:#475569; }
+    .ni-section-prob .ni-field-row { display:flex; align-items:stretch; background:rgba(0,0,0,.3); border:1px solid var(--nif-b,rgba(0,242,255,.2)); border-radius:13px; overflow:hidden; transition:all .3s ease; }
+    .ni-section-prob .ni-field-row:focus-within { border-color:var(--nif-c,var(--neon-blue)); box-shadow:0 0 18px var(--nif-gl,rgba(0,242,255,.13)); background:rgba(0,0,0,.42); }
+    .ni-section-prob .a-f  { --nif-c:var(--neon-blue); --nif-b:rgba(0,242,255,.22); --nif-gl:rgba(0,242,255,.11); }
+    .ni-section-prob .na-f { --nif-c:#64748b; --nif-b:rgba(100,116,139,.28); --nif-gl:rgba(100,116,139,.09); }
+    .ni-section-prob .b-f  { --nif-c:var(--emerald); --nif-b:rgba(16,185,129,.22); --nif-gl:rgba(16,185,129,.11); }
+    .ni-section-prob .nb-f { --nif-c:#4ade80; --nif-b:rgba(74,222,128,.18); --nif-gl:rgba(74,222,128,.09); }
+    .ni-section-prob .ni-prefix { padding:10px 13px; font-family:var(--font-orb); font-size:.8rem; font-weight:700; white-space:nowrap; border-right:1px solid rgba(255,255,255,.07); background:rgba(0,0,0,.18); color:var(--nif-c,var(--neon-blue)); min-width:48px; text-align:center; transition:background .3s; }
+    .ni-section-prob .ni-field-row:focus-within .ni-prefix { background:rgba(0,0,0,.35); }
+    .ni-section-prob .ni-field-row input[type="text"] { background:transparent!important; border:none!important; border-radius:0!important; flex:1; padding:10px 13px; font-size:.83rem; color:white; outline:none; width:100%; font-family:var(--font-viet); }
+    .ni-section-prob .ni-field-row input[type="text"]::placeholder { color:rgba(148,163,184,.4); font-style:italic; }
+    .ni-section-prob .c-blue  { color:var(--neon-blue); }
+    .ni-section-prob .c-gray  { color:#64748b; }
+    .ni-section-prob .c-green { color:var(--emerald); }
+    .ni-section-prob .c-lime  { color:#4ade80; }
+
+    /* ===== FREQ INPUT ===== */
+    .freq-input-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
+    @media(max-width:520px){ .freq-input-grid { grid-template-columns:1fr; } }
+
+    /* ===== TABS ===== */
+    .freq-tabs { display:flex; gap:8px; margin:22px 0 16px; flex-wrap:wrap; }
+    .freq-tab { padding:7px 18px; border-radius:20px; font-size:.72rem; font-family:var(--font-orb); letter-spacing:1px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.2); color:#64748b; cursor:pointer; transition:all .25s; }
+    .freq-tab.active { background:rgba(0,242,255,.12); border-color:var(--neon-blue); color:var(--neon-blue); box-shadow:0 0 14px rgba(0,242,255,.12); }
+    .freq-tab:hover:not(.active) { border-color:rgba(255,255,255,.25); color:#94a3b8; }
+    .freq-panel { display:none; animation:panelIn .35s ease both; }
+    .freq-panel.active { display:block; }
+    @keyframes panelIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ===== RESULT BOXES ===== */
+    .freq-result-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(185px,1fr)); gap:10px; margin-top:14px; }
+    .fres-box { background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px 14px; transition:all .25s; }
+    .fres-box:hover { border-color:var(--fb-c,rgba(0,242,255,.35)); background:rgba(0,0,0,.35); }
+    .fres-box small { display:block; font-size:.63rem; color:#64748b; margin-bottom:4px; font-family:var(--font-mono); }
+    .fres-box .fval { font-size:1.05rem; font-weight:700; font-family:var(--font-orb); }
+    .fres-box.c-blue   { --fb-c:rgba(0,242,255,.4);   border-color:rgba(0,242,255,.18); }
+    .fres-box.c-green  { --fb-c:rgba(16,185,129,.4);  border-color:rgba(16,185,129,.18); }
+    .fres-box.c-yellow { --fb-c:rgba(255,229,0,.4);   border-color:rgba(255,229,0,.18); }
+    .fres-box.c-pink   { --fb-c:rgba(244,114,182,.4); border-color:rgba(244,114,182,.18); }
+    .fres-box.c-purple { --fb-c:rgba(167,139,250,.4); border-color:rgba(167,139,250,.18); }
+    .fres-box.c-orange { --fb-c:rgba(251,146,60,.4);  border-color:rgba(251,146,60,.18); }
+    .fres-box.c-teal   { --fb-c:rgba(45,212,191,.4);  border-color:rgba(45,212,191,.18); }
+    .fres-box.active-glow { box-shadow:0 0 18px var(--fb-c); border-color:var(--fb-c); }
+
+    /* ===== VENN ===== */
+    .venn-wrapper { margin:8px 0 20px; padding:18px 16px 14px; background:rgba(0,0,0,.18); border:1px solid rgba(0,242,255,.14); border-radius:18px; }
+    .sec-label-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
+    .venn-hint { font-size:.68rem; color:#475569; font-family:var(--font-viet); font-style:italic; }
+    .venn-canvas-wrap { position:relative; max-width:580px; margin:0 auto; }
+    #fvenn-svg { width:100%; height:auto; display:block; filter:drop-shadow(0 0 18px rgba(0,242,255,.08)); }
+    .venn-tooltip { position:absolute; pointer-events:none; background:rgba(10,14,26,.95); border:1px solid rgba(0,242,255,.28); border-radius:12px; padding:10px 15px; font-size:.73rem; font-family:var(--font-mono); color:white; white-space:nowrap; opacity:0; transition:opacity .18s; z-index:20; box-shadow:0 8px 32px rgba(0,0,0,.6); min-width:150px; }
+    .venn-tooltip.show { opacity:1; }
+    .vt-label { display:block; font-size:.63rem; color:#64748b; margin-bottom:2px; }
+    .vt-val   { display:block; font-size:.92rem; font-weight:700; }
+    .vt-sub   { display:block; font-size:.62rem; color:#475569; margin-top:3px; }
+    .venn-legend { display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:12px; }
+    .vl-item { display:flex; align-items:center; gap:6px; font-size:.7rem; font-family:var(--font-mono); color:var(--text-mid); }
+    .vl-dot  { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+
+    /* ===== STEP SOLUTION ===== */
+    .step-solution { margin:16px 0; padding:18px 16px 14px; background:rgba(0,0,0,.18); border:1px solid rgba(16,185,129,.16); border-radius:18px; }
+    .copy-sol-btn { background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3); color:var(--emerald); font-size:.68rem; font-family:var(--font-orb); letter-spacing:1px; padding:5px 13px; border-radius:20px; cursor:pointer; transition:all .25s; font-weight:700; }
+    .copy-sol-btn:hover { background:rgba(16,185,129,.22); box-shadow:0 0 14px rgba(16,185,129,.2); }
+    .copy-sol-btn.copied { background:rgba(16,185,129,.3); color:#fff; }
+    .steps-container { display:flex; flex-direction:column; gap:10px; }
+    .step-placeholder { color:#475569; font-style:italic; font-size:.82rem; text-align:center; padding:20px 0; font-family:var(--font-viet); }
+    .step-card { display:flex; gap:14px; align-items:flex-start; background:rgba(255,255,255,.025); border:1px solid rgba(255,255,255,.06); border-radius:13px; padding:13px 15px; animation:stepIn .3s ease both; }
+    @keyframes stepIn { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
+    .step-num  { flex-shrink:0; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-orb); font-size:.72rem; font-weight:900; border:2px solid; margin-top:1px; }
+    .step-body { flex:1; min-width:0; }
+    .step-title { font-family:var(--font-orb); font-size:.72rem; letter-spacing:.5px; margin-bottom:5px; opacity:.7; }
+    .step-formula { font-family:var(--font-mono); font-size:.82rem; line-height:1.65; word-break:break-word; }
+    .step-note  { font-size:.68rem; color:#64748b; font-family:var(--font-viet); margin-top:4px; font-style:italic; }
+    .step-c-blue   { border-color:var(--neon-blue);   color:var(--neon-blue); }
+    .step-c-green  { border-color:var(--emerald);     color:var(--emerald); }
+    .step-c-yellow { border-color:var(--neon-yellow); color:var(--neon-yellow); }
+    .step-c-pink   { border-color:#f472b6;             color:#f472b6; }
+    .step-c-purple { border-color:#a78bfa;             color:#a78bfa; }
+    .step-c-orange { border-color:#fb923c;             color:#fb923c; }
+    .step-c-teal   { border-color:#2dd4bf;             color:#2dd4bf; }
+    .hi-b { color:var(--neon-blue);   font-weight:700; }
+    .hi-g { color:var(--emerald);     font-weight:700; }
+    .hi-y { color:var(--neon-yellow); font-weight:700; }
+    .hi-p { color:#f472b6;            font-weight:700; }
+    .hi-v { color:#a78bfa;            font-weight:700; }
+    .hi-o { color:#fb923c;            font-weight:700; }
+    .hi-t { color:#2dd4bf;            font-weight:700; }
+
+    /* ===== TABLE ===== */
+    .freq-table { width:100%; border-collapse:collapse; font-size:.78rem; font-family:var(--font-mono); }
+    .freq-table th { padding:7px 10px; text-align:left; color:#64748b; border-bottom:1px solid rgba(255,255,255,.06); font-weight:600; font-size:.66rem; letter-spacing:.5px; }
+    .freq-table td { padding:7px 10px; border-bottom:1px solid rgba(255,255,255,.04); }
+    .freq-table tr:last-child td { border-bottom:none; }
+    .n-col { color:var(--neon-yellow); font-weight:700; }
+    .p-col { color:var(--neon-blue); }
+
+    /* ===== COND PANEL ===== */
+    .bayes-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media(max-width:480px){ .bayes-grid { grid-template-columns:1fr; } }
+    </style>
 </head>
 <body>
-    <nav class="glass-nav">
-        <div class="logo">12B2<span>Math</span></div>
-        <ul>
-            <li><a href="index.html">Trang Chủ</a></li>
-            <li><a href="probability.html">Thường</a></li>
-            <li><a href="frequency.html" class="active">Tần Số</a></li>
-            <li><a href="conditional.html">Điều Kiện</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <div class="glass-card">
-            <div class="author-tag">BY MINH NHỰT</div>
-            <h2 class="title-neon">TÍNH THEO SỐ PHẦN TỬ \(n\)</h2>
-            <p class="title-sub">Nhập số phần tử — xác suất tự động tính</p>
-            <div class="freq-input-grid">
-                <div class="calc-field">
-                    <label>\(n(\Omega)\) — Không gian mẫu</label>
-                    <input type="number" id="nOmega" placeholder="0" min="1">
-                </div>
-                <div class="calc-field">
-                    <label>\(n(A)\) — Số phần tử A</label>
-                    <input type="number" id="nA" placeholder="0" min="0">
-                </div>
-                <div class="calc-field">
-                    <label>\(n(B)\) — Số phần tử B</label>
-                    <input type="number" id="nB" placeholder="0" min="0">
-                </div>
-                <div class="calc-field">
-                    <label>\(n(A \cap B)\) — Giao</label>
-                    <input type="number" id="nAnB_f" placeholder="0" min="0">
-                </div>
+<nav class="glass-nav">
+    <div class="logo">12B2<span>Math</span></div>
+    <ul>
+        <li><a href="index.html">Trang Chủ</a></li>
+        <li><a href="probability.html">Lý Thuyết</a></li>
+        <li><a href="frequency.html" class="active">Tần Số</a></li>
+        <li><a href="conditional.html">Điều Kiện</a></li>
+    </ul>
+</nav>
+<div class="container">
+<div class="glass-card">
+    <div class="author-tag">BY MINH NHỰT</div>
+    <h2 class="title-neon">TÍNH THEO TẦN SỐ</h2>
+    <p class="title-sub">Nhập số phần tử → hệ thống tính xác suất thường, điều kiện, Bayes và biểu đồ Venn</p>
+
+    <!-- ĐẶT TÊN BIẾN CỐ -->
+    <div class="ni-section-prob">
+        <div class="ni-header">
+            <div class="ni-title">✏️ Đặt Tên Biến Cố</div>
+            <div class="ni-line" style="background:linear-gradient(90deg,rgba(255,229,0,.35),transparent);"></div>
+            <div class="ni-hint">Tùy chọn · cập nhật toàn trang</div>
+        </div>
+        <div class="ni-grid">
+            <div class="ni-field a-f">
+                <div class="ni-field-label">Biến cố chính</div>
+                <div class="ni-field-row"><div class="ni-prefix">A</div><input type="text" id="f-name-A" placeholder="vd: học sinh nam" maxlength="30"></div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;">
-                <div class="result-box c-blue active">
-                    <small>\(P(A) = n(A) / n(\Omega)\)</small>
-                    <span id="pA_f" class="val c-blue">0</span>
-                </div>
-                <div class="result-box c-green">
-                    <small>\(P(B) = n(B) / n(\Omega)\)</small>
-                    <span id="pB_f" class="val c-green">0</span>
-                </div>
+            <div class="ni-field na-f">
+                <div class="ni-field-label">Bù của A &nbsp;<em>· tự tạo nếu để trống</em></div>
+                <div class="ni-field-row"><div class="ni-prefix">A'</div><input type="text" id="f-name-notA" placeholder="tự tạo..." maxlength="30"></div>
             </div>
-            <div class="result-box c-green active" style="margin-top:12px; border-color:var(--emerald);">
-                <small>\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\) — KẾT QUẢ</small>
-                <span id="pU" class="val c-green">0.0000</span>
+            <div class="ni-field b-f">
+                <div class="ni-field-label">Biến cố phụ</div>
+                <div class="ni-field-row"><div class="ni-prefix">B</div><input type="text" id="f-name-B" placeholder="vd: học sinh giỏi" maxlength="30"></div>
+            </div>
+            <div class="ni-field nb-f">
+                <div class="ni-field-label">Bù của B &nbsp;<em>· tự tạo nếu để trống</em></div>
+                <div class="ni-field-row"><div class="ni-prefix">B'</div><input type="text" id="f-name-notB" placeholder="tự tạo..." maxlength="30"></div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- NHẬP SỐ PHẦN TỬ -->
+    <span class="sec-label blue">📊 Nhập Số Phần Tử</span>
+    <div class="freq-input-grid" style="margin-top:12px;">
+        <div class="calc-field">
+            <label>n(Ω) — Không gian mẫu</label>
+            <input type="number" id="fq-nO" placeholder="Tổng số phần tử" min="1">
+        </div>
+        <div class="calc-field">
+            <label>n(A) — Số phần tử A</label>
+            <input type="number" id="fq-nA" placeholder="0" min="0">
+        </div>
+        <div class="calc-field">
+            <label>n(B) — Số phần tử B</label>
+            <input type="number" id="fq-nB" placeholder="0" min="0">
+        </div>
+        <div class="calc-field">
+            <label>n(A ∩ B) — Giao A và B</label>
+            <input type="number" id="fq-nAB" placeholder="0" min="0">
+        </div>
+    </div>
+
+    <!-- BẢNG TẦN SỐ NHANH -->
+    <div style="margin-top:16px; padding:14px 16px; background:rgba(0,0,0,.18); border:1px solid rgba(255,229,0,.12); border-radius:14px;">
+        <span class="sec-label" style="color:var(--neon-yellow);">📋 Bảng Tần Số</span>
+        <div style="overflow-x:auto; margin-top:10px;">
+        <table class="freq-table">
+            <thead><tr><th>Biến cố</th><th>n (phần tử)</th><th>P = n/n(Ω)</th><th style="color:#334155;">Công thức suy ra</th></tr></thead>
+            <tbody id="fq-tbody"><tr><td colspan="4" style="color:#475569;text-align:center;padding:14px;font-style:italic;">Nhập dữ liệu để xem bảng...</td></tr></tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <span class="sec-label blue" style="margin-top:24px; display:block;">🔬 Phân Tích Chi Tiết</span>
+    <div class="freq-tabs">
+        <div class="freq-tab active" id="tab-prob" onclick="switchTab('prob')">📐 Xác Suất Thường</div>
+        <div class="freq-tab"        id="tab-cond" onclick="switchTab('cond')">🔀 Điều Kiện &amp; Bayes</div>
+        <div class="freq-tab"        id="tab-venn" onclick="switchTab('venn')">🔵 Biểu Đồ Venn</div>
+    </div>
+
+    <!-- ─── PANEL 1: XÁC SUẤT THƯỜNG ─── -->
+    <div class="freq-panel active" id="panel-prob">
+        <div class="freq-result-grid">
+            <div class="fres-box c-blue">  <small id="lbl-pA">P(A)</small>    <span class="fval" style="color:var(--neon-blue);"   id="fr-pA">—</span></div>
+            <div class="fres-box c-green"> <small id="lbl-pB">P(B)</small>    <span class="fval" style="color:var(--emerald);"     id="fr-pB">—</span></div>
+            <div class="fres-box c-pink">  <small id="lbl-pNA">P(A')</small>  <span class="fval" style="color:#f472b6;"            id="fr-pNA">—</span></div>
+            <div class="fres-box c-pink">  <small id="lbl-pNB">P(B')</small>  <span class="fval" style="color:#f472b6;"            id="fr-pNB">—</span></div>
+            <div class="fres-box c-yellow"><small id="lbl-pAB">P(A∩B)</small> <span class="fval" style="color:var(--neon-yellow);" id="fr-pAB">—</span></div>
+            <div class="fres-box c-green active-glow"><small id="lbl-pAuB">P(A∪B)</small><span class="fval" style="color:var(--emerald);" id="fr-pAuB">—</span></div>
+            <div class="fres-box c-purple"><small id="lbl-pOA">P(A∩B')</small><span class="fval" style="color:#a78bfa;"           id="fr-pOA">—</span></div>
+            <div class="fres-box c-purple"><small id="lbl-pOB">P(A'∩B)</small><span class="fval" style="color:#a78bfa;"           id="fr-pOB">—</span></div>
+            <div class="fres-box c-orange"><small id="lbl-pOut">P(A'∩B')</small><span class="fval" style="color:#fb923c;"         id="fr-pOut">—</span></div>
+            <div class="fres-box c-teal">  <small id="lbl-pSym">P(A△B)</small><span class="fval" style="color:#2dd4bf;"           id="fr-pSym">—</span></div>
+        </div>
+        <!-- Quan hệ -->
+        <div style="margin-top:14px; padding:14px 16px; background:rgba(0,0,0,.18); border:1px solid rgba(191,95,255,.2); border-radius:14px;">
+            <span class="sec-label purple">🔍 Kiểm Tra Quan Hệ</span>
+            <div class="freq-result-grid" style="margin-top:10px;">
+                <div class="fres-box c-purple"><small id="lbl-dl">Độc lập?</small><span class="fval" style="color:#a78bfa;font-size:.9rem;" id="fr-dl">—</span></div>
+                <div class="fres-box c-pink"><small id="lbl-xk">Xung khắc?</small><span class="fval" style="color:#f472b6;font-size:.9rem;" id="fr-xk">—</span></div>
+            </div>
+        </div>
+        <!-- Lời giải -->
+        <div class="step-solution">
+            <div class="sec-label-row">
+                <span class="sec-label green">📝 Lời Giải Từng Bước</span>
+                <button class="copy-sol-btn" id="cpbtn-prob" onclick="copySol('prob')">📋 Copy</button>
+            </div>
+            <div class="steps-container" id="fsteps-prob"><div class="step-placeholder">Nhập dữ liệu để xem lời giải...</div></div>
+        </div>
+    </div>
+
+    <!-- ─── PANEL 2: ĐIỀU KIỆN & BAYES ─── -->
+    <div class="freq-panel" id="panel-cond">
+        <p style="font-size:.78rem;color:#64748b;font-family:var(--font-viet);margin-bottom:14px;">Tính xác suất có điều kiện và Bayes trực tiếp từ bảng tần số 2×2.</p>
+        <!-- Bảng 2×2 -->
+        <div style="padding:14px 16px; background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.07); border-radius:14px;">
+            <span class="sec-label" style="color:var(--neon-yellow);font-size:.68rem;">📊 Bảng Chéo 2×2</span>
+            <div style="overflow-x:auto;margin-top:10px;">
+            <table class="freq-table" style="margin-top:0;">
+                <thead><tr><th></th><th id="cth-B" style="color:var(--emerald);">B</th><th id="cth-NB" style="color:#f472b6;">B'</th><th style="color:#64748b;">Tổng hàng</th></tr></thead>
+                <tbody>
+                    <tr><th id="cth-A" style="color:var(--neon-blue);">A</th><td class="n-col" id="ct-AB">—</td><td class="n-col" id="ct-ANB">—</td><td class="p-col" id="ct-Arow">—</td></tr>
+                    <tr><th id="cth-NA" style="color:#64748b;">A'</th><td class="n-col" id="ct-NAB">—</td><td class="n-col" id="ct-NANB">—</td><td class="p-col" id="ct-NArow">—</td></tr>
+                    <tr><th style="color:#64748b;">Tổng cột</th><td class="p-col" id="ct-Bcol">—</td><td class="p-col" id="ct-NBcol">—</td><td class="n-col" id="ct-tot">—</td></tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <!-- XS Điều kiện -->
+        <div style="margin-top:14px; padding:14px 16px; background:rgba(0,0,0,.18); border:1px solid rgba(0,242,255,.12); border-radius:14px;">
+            <span class="sec-label blue" style="font-size:.68rem;">🔀 Xác Suất Có Điều Kiện</span>
+            <div class="freq-result-grid" style="margin-top:10px;">
+                <div class="fres-box c-blue">  <small id="clbl-BA">P(B|A)</small>    <span class="fval" style="color:var(--neon-blue);"   id="cr-BA">—</span></div>
+                <div class="fres-box c-green"> <small id="clbl-BNA">P(B|A')</small>   <span class="fval" style="color:var(--emerald);"     id="cr-BNA">—</span></div>
+                <div class="fres-box c-pink">  <small id="clbl-NBA">P(B'|A)</small>   <span class="fval" style="color:#f472b6;"            id="cr-NBA">—</span></div>
+                <div class="fres-box c-purple"><small id="clbl-NBNA">P(B'|A')</small> <span class="fval" style="color:#a78bfa;"            id="cr-NBNA">—</span></div>
+                <div class="fres-box c-yellow"><small id="clbl-AB">P(A|B)</small>     <span class="fval" style="color:var(--neon-yellow);" id="cr-AB">—</span></div>
+                <div class="fres-box c-orange"><small id="clbl-ANB">P(A|B')</small>   <span class="fval" style="color:#fb923c;"            id="cr-ANB">—</span></div>
+                <div class="fres-box c-teal">  <small id="clbl-NAB">P(A'|B)</small>   <span class="fval" style="color:#2dd4bf;"            id="cr-NAB">—</span></div>
+                <div class="fres-box c-purple"><small id="clbl-NANB">P(A'|B')</small> <span class="fval" style="color:#a78bfa;"            id="cr-NANB">—</span></div>
+            </div>
+        </div>
+        <!-- Bayes -->
+        <div style="margin-top:14px; padding:14px 16px; background:rgba(0,0,0,.18); border:1px solid rgba(255,229,0,.15); border-radius:14px;">
+            <div style="font-size:.7rem; font-family:var(--font-orb); letter-spacing:1px; color:var(--neon-yellow); margin-bottom:12px;">⚡ ĐỊNH LÝ BAYES — XÁC NHẬN TỪ TẦN SỐ</div>
+            <p style="font-size:.7rem;color:#64748b;font-family:var(--font-viet);margin-bottom:12px;">P(A|B) = P(A)·P(B|A) / P(B) &nbsp;=&nbsp; n(A∩B) / n(B) &nbsp;✓</p>
+            <div class="bayes-grid">
+                <div style="padding:12px;background:rgba(0,242,255,.05);border:1px solid rgba(0,242,255,.15);border-radius:12px;">
+                    <div style="font-size:.65rem;color:var(--neon-blue);font-family:var(--font-orb);margin-bottom:8px;" id="blbl-B">🔵 BIẾT B ĐÃ XẢY RA</div>
+                    <div class="freq-result-grid" style="gap:8px;">
+                        <div class="fres-box c-blue"  style="padding:8px 12px;"><small id="blbl-AB">P(A|B)</small>  <span class="fval" style="color:var(--neon-blue);" id="br-AB">—</span></div>
+                        <div class="fres-box c-teal" style="padding:8px 12px;"><small id="blbl-NAB">P(A'|B)</small><span class="fval" style="color:#2dd4bf;"         id="br-NAB">—</span></div>
+                    </div>
+                </div>
+                <div style="padding:12px;background:rgba(255,229,0,.04);border:1px solid rgba(255,229,0,.15);border-radius:12px;">
+                    <div style="font-size:.65rem;color:var(--neon-yellow);font-family:var(--font-orb);margin-bottom:8px;" id="blbl-NB">🟡 BIẾT B' ĐÃ XẢY RA</div>
+                    <div class="freq-result-grid" style="gap:8px;">
+                        <div class="fres-box c-yellow" style="padding:8px 12px;"><small id="blbl-ANB">P(A|B')</small>  <span class="fval" style="color:var(--neon-yellow);" id="br-ANB">—</span></div>
+                        <div class="fres-box c-orange" style="padding:8px 12px;"><small id="blbl-NANB">P(A'|B')</small><span class="fval" style="color:#fb923c;"           id="br-NANB">—</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Lời giải điều kiện -->
+        <div class="step-solution">
+            <div class="sec-label-row">
+                <span class="sec-label green">📝 Lời Giải Điều Kiện &amp; Bayes</span>
+                <button class="copy-sol-btn" id="cpbtn-cond" onclick="copySol('cond')">📋 Copy</button>
+            </div>
+            <div class="steps-container" id="fsteps-cond"><div class="step-placeholder">Nhập dữ liệu để xem...</div></div>
+        </div>
+    </div>
+
+    <!-- ─── PANEL 3: VENN ─── -->
+    <div class="freq-panel" id="panel-venn">
+        <div class="venn-wrapper">
+            <div class="sec-label-row">
+                <span class="sec-label blue">🔵 Biểu Đồ Venn — Tần Số</span>
+                <span class="venn-hint" id="fvenn-hint">Nhập dữ liệu để xem biểu đồ</span>
+            </div>
+            <div class="venn-canvas-wrap" id="fvenn-wrap">
+                <svg id="fvenn-svg" viewBox="0 0 540 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Ω -->
+                    <rect x="10" y="10" width="520" height="260" rx="14" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                    <text x="26" y="33" fill="rgba(255,255,255,0.3)" font-size="14" font-family="monospace" font-weight="bold">Ω</text>
+                    <!-- A fill -->
+                    <circle id="fv-cA" cx="200" cy="140" r="96" fill="rgba(0,242,255,0.10)" stroke="#00f2ff" stroke-width="2.5"/>
+                    <!-- B fill -->
+                    <circle id="fv-cB" cx="330" cy="140" r="96" fill="rgba(16,185,129,0.10)" stroke="#10b981" stroke-width="2.5"/>
+                    <!-- Intersection -->
+                    <clipPath id="fclipA"><circle id="fclip-A" cx="200" cy="140" r="96"/></clipPath>
+                    <circle id="fv-inter" cx="330" cy="140" r="96" fill="rgba(255,229,0,0.22)" clip-path="url(#fclipA)" stroke="none"/>
+                    <!-- HOVER ZONES — transparent, layered on top -->
+                    <!-- Out zone (bottom) -->
+                    <rect id="fvz-out" x="10" y="10" width="520" height="260" fill="transparent" rx="14"/>
+                    <!-- A zone -->
+                    <circle id="fvz-A" cx="200" cy="140" r="96" fill="transparent" style="cursor:pointer;"/>
+                    <!-- B zone -->
+                    <circle id="fvz-B" cx="330" cy="140" r="96" fill="transparent" style="cursor:pointer;"/>
+                    <!-- AB zone (clipped intersection — must be last so it intercepts mousemove first) -->
+                    <clipPath id="fclipA2"><circle id="fclip-A2" cx="200" cy="140" r="96"/></clipPath>
+                    <circle id="fvz-AB" cx="330" cy="140" r="96" fill="transparent" clip-path="url(#fclipA2)" style="cursor:pointer;"/>
+                    <!-- Labels -->
+                    <text id="fvl-An"  x="155" y="128" fill="#00f2ff" font-size="13" font-family="monospace" text-anchor="middle" font-weight="bold"></text>
+                    <text id="fvl-An2" x="155" y="145" fill="#00f2ff" font-size="11" font-family="monospace" text-anchor="middle"></text>
+                    <text id="fvl-An3" x="155" y="160" fill="rgba(0,242,255,.65)" font-size="10" font-family="monospace" text-anchor="middle"></text>
+                    <text id="fvl-Bn"  x="385" y="128" fill="#10b981" font-size="13" font-family="monospace" text-anchor="middle" font-weight="bold"></text>
+                    <text id="fvl-Bn2" x="385" y="145" fill="#10b981" font-size="11" font-family="monospace" text-anchor="middle"></text>
+                    <text id="fvl-Bn3" x="385" y="160" fill="rgba(16,185,129,.65)" font-size="10" font-family="monospace" text-anchor="middle"></text>
+                    <text id="fvl-In"  x="265" y="128" fill="#ffe500" font-size="12" font-family="monospace" text-anchor="middle" font-weight="bold"></text>
+                    <text id="fvl-In2" x="265" y="145" fill="#ffe500" font-size="11" font-family="monospace" text-anchor="middle"></text>
+                    <text id="fvl-In3" x="265" y="160" fill="rgba(255,229,0,.65)" font-size="10" font-family="monospace" text-anchor="middle"></text>
+                    <text id="fvl-out" x="492" y="265" fill="rgba(255,255,255,0.3)" font-size="10" font-family="monospace" text-anchor="middle"></text>
+                </svg>
+                <div class="venn-tooltip" id="fvenn-tip"></div>
+            </div>
+            <div class="venn-legend">
+                <div class="vl-item"><span class="vl-dot" style="background:#00f2ff;"></span><span id="fleg-A">Chỉ A</span></div>
+                <div class="vl-item"><span class="vl-dot" style="background:#ffe500;"></span><span id="fleg-AB">A ∩ B</span></div>
+                <div class="vl-item"><span class="vl-dot" style="background:#10b981;"></span><span id="fleg-B">Chỉ B</span></div>
+                <div class="vl-item"><span class="vl-dot" style="background:rgba(255,255,255,.18);"></span><span id="fleg-out">Ngoài</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div style="margin-top:20px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+        <button class="btn" onclick="resetFreq()">🔄 Làm Mới</button>
+    </div>
+    <div class="status-bar" style="max-width:600px;margin:12px auto 0;">
+        <div class="status-dot active"></div>
+        <span id="fq-status">Sẵn sàng — nhập n(Ω), n(A), n(B), n(A∩B).</span>
+    </div>
+</div>
+</div>
+
+<script src="script.js"></script>
+<script>
+/* ======================================================
+   FREQUENCY PAGE ENGINE — Full probability + conditional
+   by Minh Nhựt
+====================================================== */
+const FS = { nO:0, nA:0, nB:0, nAB:0 };
+
+// ── Helpers ───────────────────────────────────────────
+const _sr  = v => (!isFinite(v)||isNaN(v)) ? '?' : (Math.round(v*10000)/10000).toString();
+const _fmt = v => (!isFinite(v)||isNaN(v)) ? '—' : _sr(v);
+const _set = (id,v)=>{ const e=document.getElementById(id); if(e) e.innerText=_fmt(v); };
+const _txt = (id,t)=>{ const e=document.getElementById(id); if(e) e.innerText=t; };
+
+function fNames() {
+    const A  = document.getElementById('f-name-A')?.value.trim()    || 'A';
+    const B  = document.getElementById('f-name-B')?.value.trim()    || 'B';
+    const nA = document.getElementById('f-name-notA')?.value.trim() || (A==='A'?"A'":'không '+A);
+    const nB = document.getElementById('f-name-notB')?.value.trim() || (B==='B'?"B'":'không '+B);
+    return {A,B,nA,nB};
+}
+
+// ── Tab switch ────────────────────────────────────────
+function switchTab(t) {
+    ['prob','cond','venn'].forEach(x=>{
+        document.getElementById('tab-'+x)?.classList.toggle('active',x===t);
+        document.getElementById('panel-'+x)?.classList.toggle('active',x===t);
+    });
+    if(t==='venn') drawVenn();
+}
+
+// ── Main compute ──────────────────────────────────────
+function computeFreq() {
+    const nO  = +document.getElementById('fq-nO').value  || 0;
+    const nA  = +document.getElementById('fq-nA').value  || 0;
+    const nB  = +document.getElementById('fq-nB').value  || 0;
+    const nAB = +document.getElementById('fq-nAB').value || 0;
+    Object.assign(FS,{nO,nA,nB,nAB});
+
+    const n = fNames();
+
+    if (nO<=0) {
+        _txt('fq-status','Chờ nhập n(Ω)...');
+        return;
+    }
+
+    // ── Derived n values ──
+    const nAonly  = nA-nAB;               // n(A∩B')
+    const nBonly  = nB-nAB;               // n(A'∩B)
+    const nNA     = nO-nA;                // n(A')
+    const nNB     = nO-nB;                // n(B')
+    const nNANB   = nO-nA-nB+nAB;        // n(A'∩B')
+    const nAuB    = nA+nB-nAB;           // n(A∪B)
+
+    // ── Probabilities ──
+    const pA    = nA/nO,  pB=nB/nO,  pAB=nAB/nO;
+    const pAuB  = pA+pB-pAB;
+    const pNA   = 1-pA,   pNB=1-pB;
+    const pAonly= Math.max(0,pA-pAB);
+    const pBonly= Math.max(0,pB-pAB);
+    const pOut  = Math.max(0,1-pAuB);
+    const pSym  = pAonly+pBonly;
+
+    // ── Freq table ──
+    const tbody=document.getElementById('fq-tbody');
+    const rows=[
+        [n.A,               nA,     pA,     `n(${n.A})/n(Ω)`],
+        [n.B,               nB,     pB,     `n(${n.B})/n(Ω)`],
+        [`${n.A}∩${n.B}`,  nAB,    pAB,    `n(${n.A}∩${n.B})/n(Ω)`],
+        [`${n.A}∪${n.B}`,  nAuB,   pAuB,   `[n(${n.A})+n(${n.B})−n(∩)]/n(Ω)`],
+        [`Chỉ ${n.A}`,     nAonly, pAonly, `n(${n.A})−n(${n.A}∩${n.B})`],
+        [`Chỉ ${n.B}`,     nBonly, pBonly, `n(${n.B})−n(${n.A}∩${n.B})`],
+        [n.nA,              nNA,    pNA,    `n(Ω)−n(${n.A})`],
+        [n.nB,              nNB,    pNB,    `n(Ω)−n(${n.B})`],
+        [`${n.nA}∩${n.nB}`,nNANB<0?'?':nNANB, pOut, `n(Ω)−n(${n.A})−n(${n.B})+n(∩)`],
+    ];
+    tbody.innerHTML=rows.map(([ev,nv,pv,f])=>
+        `<tr><td>${ev}</td><td class="n-col">${typeof nv==='number'&&nv<0?'⚠️':nv}</td><td class="p-col">${_fmt(pv)}</td><td style="color:#334155;font-size:.65rem;">${f}</td></tr>`
+    ).join('');
+
+    // ── Panel 1 results ──
+    _set('fr-pA',  pA);   _set('fr-pB',  pB);
+    _set('fr-pNA', pNA);  _set('fr-pNB', pNB);
+    _set('fr-pAB', pAB);  _set('fr-pAuB',pAuB);
+    _set('fr-pOA', pAonly);_set('fr-pOB',pBonly);
+    _set('fr-pOut',pOut); _set('fr-pSym',pSym);
+
+    const isXK=nAB===0, isDL=Math.abs(pAB-pA*pB)<1e-6;
+    _txt('fr-dl', isDL?'Có ✅':'Không ❌');
+    _txt('fr-xk', isXK?'Có ✅':'Không ❌');
+
+    // Labels
+    _txt('lbl-pA',  `P(${n.A}) = ${nA}/${nO}`);
+    _txt('lbl-pB',  `P(${n.B}) = ${nB}/${nO}`);
+    _txt('lbl-pNA', `P(${n.nA}) = 1−P(${n.A})`);
+    _txt('lbl-pNB', `P(${n.nB}) = 1−P(${n.B})`);
+    _txt('lbl-pAB', `P(${n.A}∩${n.B}) = ${nAB}/${nO}`);
+    _txt('lbl-pAuB',`P(${n.A}∪${n.B}) = P(A)+P(B)−P(∩)`);
+    _txt('lbl-pOA', `P(${n.A}∩${n.nB}) = P(A)−P(A∩B)`);
+    _txt('lbl-pOB', `P(${n.nA}∩${n.B}) = P(B)−P(A∩B)`);
+    _txt('lbl-pOut',`P(${n.nA}∩${n.nB}) = 1−P(A∪B)`);
+    _txt('lbl-pSym',`P(${n.A}△${n.B}) hiệu xứng`);
+    _txt('lbl-dl',  `Độc lập? P(${n.A}∩${n.B})=P(A)·P(B)`);
+    _txt('lbl-xk',  `Xung khắc? n(${n.A}∩${n.B})=0`);
+
+    buildProbSteps(nO,nA,nB,nAB,nAonly,nBonly,nNA,nNB,nNANB,n,pA,pB,pAB,pAuB,pNA,pNB,pAonly,pBonly,pOut,pSym,isXK,isDL);
+
+    // ── Panel 2: Conditional ──
+    // Table headers
+    _txt('cth-A', n.A); _txt('cth-NA',n.nA);
+    _txt('cth-B', n.B); _txt('cth-NB',n.nB);
+    const safeN = v => (isNaN(v)||v<0)?'⚠️':v;
+    _txt('ct-AB',   safeN(nAB));
+    _txt('ct-ANB',  safeN(nAonly));
+    _txt('ct-Arow', safeN(nA));
+    _txt('ct-NAB',  safeN(nBonly));
+    _txt('ct-NANB', safeN(nNANB<0?NaN:nNANB));
+    _txt('ct-NArow',safeN(nNA));
+    _txt('ct-Bcol', safeN(nB));
+    _txt('ct-NBcol',safeN(nNB));
+    _txt('ct-tot',  safeN(nO));
+
+    // Conditional probabilities
+    const pBA   = nA>0   ? nAB/nA   : NaN;   // P(B|A)
+    const pBNA  = nNA>0  ? nBonly/nNA: NaN;  // P(B|A')
+    const pNBA  = nA>0   ? nAonly/nA : NaN;  // P(B'|A)
+    const pNBNA = nNA>0  ? (nNANB<0?NaN:nNANB/nNA) : NaN; // P(B'|A')
+    const pAB2  = nB>0   ? nAB/nB   : NaN;   // P(A|B)
+    const pANB  = nNB>0  ? nAonly/nNB: NaN;  // P(A|B')
+    const pNAB  = nB>0   ? nBonly/nB : NaN;  // P(A'|B)
+    const pNANB = nNB>0  ? (nNANB<0?NaN:nNANB/nNB) : NaN; // P(A'|B')
+
+    _set('cr-BA',  pBA);  _set('cr-BNA', pBNA);
+    _set('cr-NBA', pNBA); _set('cr-NBNA',pNBNA);
+    _set('cr-AB',  pAB2); _set('cr-ANB', pANB);
+    _set('cr-NAB', pNAB); _set('cr-NANB',pNANB);
+
+    // Conditional labels
+    _txt('clbl-BA',  `P(${n.B}|${n.A}) = ${nAB}/${nA}`);
+    _txt('clbl-BNA', `P(${n.B}|${n.nA}) = ${nBonly}/${nNA}`);
+    _txt('clbl-NBA', `P(${n.nB}|${n.A}) = ${nAonly}/${nA}`);
+    _txt('clbl-NBNA',`P(${n.nB}|${n.nA}) = ${nNANB<0?'?':nNANB}/${nNA}`);
+    _txt('clbl-AB',  `P(${n.A}|${n.B}) = ${nAB}/${nB}`);
+    _txt('clbl-ANB', `P(${n.A}|${n.nB}) = ${nAonly}/${nNB}`);
+    _txt('clbl-NAB', `P(${n.nA}|${n.B}) = ${nBonly}/${nB}`);
+    _txt('clbl-NANB',`P(${n.nA}|${n.nB}) = ${nNANB<0?'?':nNANB}/${nNB}`);
+
+    // Bayes
+    _set('br-AB',   pAB2); _set('br-NAB', pNAB);
+    _set('br-ANB',  pANB); _set('br-NANB',pNANB);
+    _txt('blbl-B',  `🔵 BIẾT ${n.B} ĐÃ XẢY RA`);
+    _txt('blbl-NB', `🟡 BIẾT ${n.nB} ĐÃ XẢY RA`);
+    _txt('blbl-AB',  `P(${n.A}|${n.B})`);
+    _txt('blbl-NAB', `P(${n.nA}|${n.B})`);
+    _txt('blbl-ANB', `P(${n.A}|${n.nB})`);
+    _txt('blbl-NANB',`P(${n.nA}|${n.nB})`);
+
+    buildCondSteps(nO,nA,nB,nAB,nAonly,nBonly,nNA,nNB,nNANB,n,pA,pB,pAB,pBA,pBNA,pNBA,pNBNA,pAB2,pANB,pNAB,pNANB);
+
+    if(document.getElementById('panel-venn')?.classList.contains('active')) drawVenn();
+    _txt('fq-status',`Đã tính — n(Ω)=${nO}, n(${n.A})=${nA}, n(${n.B})=${nB}, n(∩)=${nAB}`);
+}
+
+// ── Probability steps ─────────────────────────────────
+function buildProbSteps(nO,nA,nB,nAB,nAonly,nBonly,nNA,nNB,nNANB,n,pA,pB,pAB,pAuB,pNA,pNB,pAonly,pBonly,pOut,pSym,isXK,isDL) {
+    const c=document.getElementById('fsteps-prob');
+    if(!c)return;
+    const {A,B,nA:nA_,nB:nB_}=n;
+    const s=[
+        {num:'①',cls:'blue',
+         title:'Dữ Liệu Tần Số Đầu Vào',
+         formula:`<span class="hi-b">n(Ω)</span>=${nO} &emsp; <span class="hi-b">n(${A})</span>=${nA} &emsp; <span class="hi-g">n(${B})</span>=${nB} &emsp; <span class="hi-y">n(${A}∩${B})</span>=${nAB}`,
+         note:'Mọi xác suất đều bằng số phần tử chia cho n(Ω).'},
+        {num:'②',cls:'green',
+         title:`P(${A}) và P(${B})`,
+         formula:`<span class="hi-b">P(${A})</span> = n(${A})/n(Ω) = ${nA}/${nO} = <span class="hi-b">${_sr(pA)}</span><br>
+                  <span class="hi-g">P(${B})</span> = n(${B})/n(Ω) = ${nB}/${nO} = <span class="hi-g">${_sr(pB)}</span>`,
+         note:'Định nghĩa cổ điển xác suất.'},
+        {num:'③',cls:'pink',
+         title:`Bù — P(${nA_}) và P(${nB_})`,
+         formula:`<span class="hi-p">P(${nA_})</span> = 1−${_sr(pA)} = <span class="hi-p">${_sr(pNA)}</span> &emsp; [n(${nA_})=${nNA}]<br>
+                  <span class="hi-p">P(${nB_})</span> = 1−${_sr(pB)} = <span class="hi-p">${_sr(pNB)}</span> &emsp; [n(${nB_})=${nNB}]`,
+         note:`P(A)+P(A')=1 luôn đúng.`},
+        {num:'④',cls:'yellow',
+         title:`Giao — P(${A}∩${B})`,
+         formula:`<span class="hi-y">P(${A}∩${B})</span> = n(${A}∩${B})/n(Ω) = ${nAB}/${nO} = <span class="hi-y">${_sr(pAB)}</span>`,
+         note:'Đọc trực tiếp từ dữ liệu.'},
+        {num:'⑤',cls:'green',
+         title:`Hợp — P(${A}∪${B})`,
+         formula:`P(${A}∪${B}) = P(${A})+P(${B})−P(${A}∩${B})<br>= ${_sr(pA)}+${_sr(pB)}−${_sr(pAB)} = <span class="hi-g">${_sr(pAuB)}</span><br>
+                  <span style="color:#475569;font-size:.78rem;">kiểm tra: n=${nA}+${nB}−${nAB}=${nA+nB-nAB} → ÷${nO}=${_sr(pAuB)}</span>`,
+         note:'Công thức cộng, trừ giao tránh đếm hai lần.'},
+        {num:'⑥',cls:'purple',
+         title:`Phần Riêng — Chỉ ${A} hoặc Chỉ ${B}`,
+         formula:`P(${A}∩${nB_}) = ${_sr(pA)}−${_sr(pAB)} = <span class="hi-v">${_sr(pAonly)}</span> [n=${nAonly}]<br>
+                  P(${nA_}∩${B}) = ${_sr(pB)}−${_sr(pAB)} = <span class="hi-v">${_sr(pBonly)}</span> [n=${nBonly}]`,
+         note:'Thuộc đúng một biến cố.'},
+        {num:'⑦',cls:'orange',
+         title:`Ngoài Hợp — P(${nA_}∩${nB_})`,
+         formula:`P(${nA_}∩${nB_}) = 1−${_sr(pAuB)} = <span class="hi-o">${_sr(pOut)}</span><br>
+                  <span style="color:#475569;font-size:.78rem;">n=${nO}−${nA}−${nB}+${nAB}=${nNANB<0?'⚠️âm':nNANB}</span>`,
+         note:'Nếu n âm thì dữ liệu mâu thuẫn — kiểm tra lại n(A∩B).'},
+        {num:'⑧',cls:'teal',
+         title:'Quan Hệ & Kiểm Tra',
+         formula:(isXK?`✅ <span class="hi-t">Xung khắc</span>: n(${A}∩${B})=0<br>`:`❌ Không xung khắc: n(${A}∩${B})=${nAB}≠0<br>`)
+                +(isDL?`✅ <span class="hi-t">Độc lập</span>: P(∩)=${_sr(pAB)}≈P(A)·P(B)=${_sr(pA*pB)}`:`❌ Không độc lập: P(∩)=${_sr(pAB)}≠P(A)·P(B)=${_sr(pA*pB)}`),
+         note:'Xung khắc và độc lập là hai khái niệm khác nhau.'}
+    ];
+    c.innerHTML=s.map((x,i)=>`
+        <div class="step-card" style="animation-delay:${i*.05}s">
+            <div class="step-num step-c-${x.cls}">${x.num}</div>
+            <div class="step-body">
+                <div class="step-title step-c-${x.cls}">${x.title}</div>
+                <div class="step-formula">${x.formula}</div>
+                ${x.note?`<div class="step-note">💡 ${x.note}</div>`:''}
+            </div>
+        </div>`).join('');
+}
+
+// ── Conditional steps ─────────────────────────────────
+function buildCondSteps(nO,nA,nB,nAB,nAonly,nBonly,nNA,nNB,nNANB,n,pA,pB,pAB,pBA,pBNA,pNBA,pNBNA,pAB2,pANB,pNAB,pNANB) {
+    const c=document.getElementById('fsteps-cond');
+    if(!c)return;
+    const {A,B,nA:nA_,nB:nB_}=n;
+    const pBtot=pA*(pBA||0)+(1-pA)*(pBNA||0); // xác nhận toàn phần
+    const s=[
+        {num:'①',cls:'blue',
+         title:'Bảng Tần Số 2×2',
+         formula:`<table style="font-family:var(--font-mono);font-size:.8rem;border-collapse:collapse;">
+            <tr><td style="padding:4px 10px;"></td><td style="color:#10b981;padding:4px 10px;">${B}</td><td style="color:#f472b6;padding:4px 10px;">${nB_}</td><td style="color:#64748b;padding:4px 10px;">Tổng</td></tr>
+            <tr><td style="color:#00f2ff;padding:4px 10px;">${A}</td><td class="n-col" style="padding:4px 10px;">${nAB}</td><td class="n-col" style="padding:4px 10px;">${nAonly}</td><td class="p-col" style="padding:4px 10px;">${nA}</td></tr>
+            <tr><td style="color:#64748b;padding:4px 10px;">${nA_}</td><td class="n-col" style="padding:4px 10px;">${nBonly}</td><td class="n-col" style="padding:4px 10px;">${nNANB<0?'⚠️':nNANB}</td><td class="p-col" style="padding:4px 10px;">${nNA}</td></tr>
+            <tr><td style="color:#64748b;padding:4px 10px;">Tổng</td><td class="p-col" style="padding:4px 10px;">${nB}</td><td class="p-col" style="padding:4px 10px;">${nNB}</td><td class="n-col" style="padding:4px 10px;">${nO}</td></tr>
+         </table>`,
+         note:'Bảng 2×2 là cơ sở để tính mọi xác suất có điều kiện.'},
+        {num:'②',cls:'green',
+         title:`P(${B}|${A}) và P(${nB_}|${A}) — biết ${A}`,
+         formula:`<span class="hi-g">P(${B}|${A})</span> = n(${A}∩${B})/n(${A}) = ${nAB}/${nA} = <span class="hi-g">${_fmt(pBA)}</span><br>
+                  P(${nB_}|${A}) = n(${A}∩${nB_})/n(${A}) = ${nAonly}/${nA} = ${_fmt(pNBA)}<br>
+                  <span style="color:#475569;font-size:.78rem;">kiểm tra: ${_fmt(pBA)}+${_fmt(pNBA)}=${_fmt((pBA||0)+(pNBA||0))} ✓</span>`,
+         note:`Trong số những ${A}, bao nhiêu phần trăm cũng ${B}?`},
+        {num:'③',cls:'yellow',
+         title:`P(${B}|${nA_}) và P(${nB_}|${nA_}) — biết ${nA_}`,
+         formula:`<span class="hi-y">P(${B}|${nA_})</span> = n(${nA_}∩${B})/n(${nA_}) = ${nBonly}/${nNA} = <span class="hi-y">${_fmt(pBNA)}</span><br>
+                  P(${nB_}|${nA_}) = n(${nA_}∩${nB_})/n(${nA_}) = ${nNANB<0?'⚠️':nNANB}/${nNA} = ${_fmt(pNBNA)}`,
+         note:`Trong số những ${nA_}, bao nhiêu phần trăm thuộc ${B}?`},
+        {num:'④',cls:'pink',
+         title:`Xác Suất Toàn Phần — P(${B})`,
+         formula:`P(${B}) = P(${A})·P(${B}|${A}) + P(${nA_})·P(${B}|${nA_})<br>
+                  = ${_sr(pA)}·${_fmt(pBA)} + ${_sr(1-pA)}·${_fmt(pBNA)}<br>
+                  = ${_sr(pA*(pBA||0))} + ${_sr((1-pA)*(pBNA||0))}<br>
+                  = <span class="hi-p">${_fmt(pBtot)}</span> ✓ khớp: n(${B})/${nO}=${_sr(pB)}`,
+         note:'Định lý xác suất toàn phần phân tách theo các trường hợp đầy đủ.'},
+        {num:'⑤',cls:'purple',
+         title:`Bayes — P(${A}|${B}) và P(${nA_}|${B})`,
+         formula:`<span class="hi-v">P(${A}|${B})</span> = n(${A}∩${B})/n(${B}) = ${nAB}/${nB} = <span class="hi-v">${_fmt(pAB2)}</span><br>
+                  P(${nA_}|${B}) = n(${nA_}∩${B})/n(${B}) = ${nBonly}/${nB} = ${_fmt(pNAB)}<br>
+                  <span style="color:#475569;font-size:.78rem;">Bayes xác nhận: P(${A})·P(${B}|${A})/P(${B}) = ${_sr(pA)}·${_fmt(pBA)}/${_sr(pB)} = ${_fmt(pAB2)}</span>`,
+         note:'Bayes: biết B đã xảy ra, suy ra khả năng nguyên nhân A.'},
+        {num:'⑥',cls:'orange',
+         title:`Bayes — P(${A}|${nB_}) và P(${nA_}|${nB_})`,
+         formula:`<span class="hi-o">P(${A}|${nB_})</span> = n(${A}∩${nB_})/n(${nB_}) = ${nAonly}/${nNB} = <span class="hi-o">${_fmt(pANB)}</span><br>
+                  P(${nA_}|${nB_}) = n(${nA_}∩${nB_})/n(${nB_}) = ${nNANB<0?'⚠️':nNANB}/${nNB} = ${_fmt(pNANB)}<br>
+                  <span style="color:#475569;font-size:.78rem;">kiểm tra: ${_fmt(pANB)}+${_fmt(pNANB)}=${_fmt((pANB||0)+(pNANB||0))} ✓</span>`,
+         note:`Biết ${nB_} đã xảy ra — truy tìm nguyên nhân.`}
+    ];
+    c.innerHTML=s.map((x,i)=>`
+        <div class="step-card" style="animation-delay:${i*.05}s">
+            <div class="step-num step-c-${x.cls}">${x.num}</div>
+            <div class="step-body">
+                <div class="step-title step-c-${x.cls}">${x.title}</div>
+                <div class="step-formula">${x.formula}</div>
+                ${x.note?`<div class="step-note">💡 ${x.note}</div>`:''}
+            </div>
+        </div>`).join('');
+}
+
+// ── Draw Venn ─────────────────────────────────────────
+function drawVenn() {
+    const {nO,nA,nB,nAB}=FS;
+    const hint=document.getElementById('fvenn-hint');
+    if(!hint) return;
+    const hasData=nO>0&&(nA>0||nB>0);
+    hint.textContent=hasData?'':'Nhập dữ liệu để xem biểu đồ';
+    if(!hasData) return;
+
+    const n=fNames();
+    const pA=nA/nO, pB=nB/nO, pAB=nAB/nO;
+    const pAonly=Math.max(0,pA-pAB), pBonly=Math.max(0,pB-pAB);
+    const nAonly=nA-nAB, nBonly=nB-nAB, nNANB=Math.max(0,nO-nA-nB+nAB);
+    const pOut=Math.max(0,1-(pA+pB-pAB));
+
+    // Overlap animation
+    const CY=140, R=96;
+    const maxOv=Math.min(pA,pB);
+    const ovR=maxOv>0?Math.min(pAB/maxOv,1):0;
+    const dist=200-ovR*80;
+    const cxA=270-dist/2, cxB=270+dist/2;
+    const midX=(cxA+cxB)/2;
+    const lAx=cxA-(cxB-cxA)*0.26;
+    const lBx=cxB+(cxB-cxA)*0.26;
+
+    const sa=(id,attrs)=>{ const e=document.getElementById(id); if(e) Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v)); };
+    sa('fv-cA',   {cx:cxA,cy:CY,r:R});
+    sa('fv-cB',   {cx:cxB,cy:CY,r:R});
+    sa('fv-inter',{cx:cxB,cy:CY,r:R});
+    sa('fclip-A', {cx:cxA,cy:CY,r:R});
+    sa('fclip-A2',{cx:cxA,cy:CY,r:R});
+    sa('fvz-A',   {cx:cxA,cy:CY,r:R});
+    sa('fvz-B',   {cx:cxB,cy:CY,r:R});
+    sa('fvz-AB',  {cx:cxB,cy:CY,r:R});
+
+    const st=(id,txt,x,y)=>{
+        const e=document.getElementById(id);
+        if(!e)return;
+        e.textContent=txt;
+        if(x!==undefined)e.setAttribute('x',x);
+        if(y!==undefined)e.setAttribute('y',y);
+    };
+    st('fvl-An', n.A,    lAx, CY-20);
+    st('fvl-An2',`n=${nAonly}`, lAx, CY-4);
+    st('fvl-An3',`P=${_sr(pAonly)}`,lAx, CY+12);
+    st('fvl-Bn', n.B,    lBx, CY-20);
+    st('fvl-Bn2',`n=${nBonly}`, lBx, CY-4);
+    st('fvl-Bn3',`P=${_sr(pBonly)}`,lBx, CY+12);
+    if(pAB>0){
+        st('fvl-In', '∩',        midX, CY-20);
+        st('fvl-In2',`n=${nAB}`, midX, CY-4);
+        st('fvl-In3',`P=${_sr(pAB)}`,midX,CY+12);
+    } else {
+        ['fvl-In','fvl-In2','fvl-In3'].forEach(id=>_txt(id,''));
+    }
+    st('fvl-out',`n=${nNANB} P=${_sr(pOut)}`);
+
+    // Legend
+    _txt('fleg-A',  `Chỉ ${n.A}: n=${nAonly}, P=${_sr(pAonly)}`);
+    _txt('fleg-AB', `${n.A}∩${n.B}: n=${nAB}, P=${_sr(pAB)}`);
+    _txt('fleg-B',  `Chỉ ${n.B}: n=${nBonly}, P=${_sr(pBonly)}`);
+    _txt('fleg-out',`Ngoài: n=${nNANB}, P=${_sr(pOut)}`);
+}
+
+// ── Venn hover tooltips ───────────────────────────────
+(function initVennHover(){
+    const tip  = document.getElementById('fvenn-tip');
+    const wrap = document.getElementById('fvenn-wrap');
+    if(!tip||!wrap) return;
+
+    function show(e,html){ tip.innerHTML=html; tip.classList.add('show'); mv(e); }
+    function mv(e){
+        const r=wrap.getBoundingClientRect();
+        let x=e.clientX-r.left+14, y=e.clientY-r.top-14;
+        if(x+200>r.width) x-=215;
+        if(y<8) y=e.clientY-r.top+16;
+        tip.style.left=x+'px'; tip.style.top=y+'px';
+    }
+    function hide(){ tip.classList.remove('show'); }
+    const N=()=>fNames();
+
+    // AB zone — must bind first so it captures overlap area
+    const zAB=document.getElementById('fvz-AB');
+    if(zAB){
+        zAB.addEventListener('mousemove',e=>{
+            const {nO,nA,nB,nAB}=FS;
+            const pAB=nO>0?nAB/nO:0;
+            show(e,
+                `<span class="vt-label" style="color:#ffe500;">${N().A} ∩ ${N().B}</span>`+
+                `<span class="vt-val" style="color:#ffe500;">${_sr(pAB)}</span>`+
+                `<span class="vt-sub">n = ${nAB} phần tử chung</span>`
+            );
+        });
+        zAB.addEventListener('mouseleave',hide);
+    }
+
+    const zA=document.getElementById('fvz-A');
+    if(zA){
+        zA.addEventListener('mousemove',e=>{
+            const {nO,nA,nAB}=FS;
+            const pA=nO>0?nA/nO:0, pAB=nO>0?nAB/nO:0;
+            const pOnly=Math.max(0,pA-pAB), nOnly=nA-nAB;
+            show(e,
+                `<span class="vt-label" style="color:#00f2ff;">${N().A} — tổng</span>`+
+                `<span class="vt-val" style="color:#00f2ff;">P(${N().A}) = ${_sr(pA)}</span>`+
+                `<span class="vt-sub">Chỉ ${N().A}: n=${nOnly}, P=${_sr(pOnly)}</span>`
+            );
+        });
+        zA.addEventListener('mouseleave',hide);
+    }
+
+    const zB=document.getElementById('fvz-B');
+    if(zB){
+        zB.addEventListener('mousemove',e=>{
+            const {nO,nB,nAB}=FS;
+            const pB=nO>0?nB/nO:0, pAB=nO>0?nAB/nO:0;
+            const pOnly=Math.max(0,pB-pAB), nOnly=nB-nAB;
+            show(e,
+                `<span class="vt-label" style="color:#10b981;">${N().B} — tổng</span>`+
+                `<span class="vt-val" style="color:#10b981;">P(${N().B}) = ${_sr(pB)}</span>`+
+                `<span class="vt-sub">Chỉ ${N().B}: n=${nOnly}, P=${_sr(pOnly)}</span>`
+            );
+        });
+        zB.addEventListener('mouseleave',hide);
+    }
+
+    const zOut=document.getElementById('fvz-out');
+    if(zOut){
+        zOut.addEventListener('mousemove',e=>{
+            const {nO,nA,nB,nAB}=FS;
+            const pAuB=(nO>0)?(nA+nB-nAB)/nO:0;
+            const pOut=Math.max(0,1-pAuB);
+            const nOut=Math.max(0,nO-nA-nB+nAB);
+            show(e,
+                `<span class="vt-label">Ngoài ${N().A}∪${N().B}</span>`+
+                `<span class="vt-val" style="color:rgba(255,255,255,.75);">P = ${_sr(pOut)}</span>`+
+                `<span class="vt-sub">n = ${nOut} phần tử</span>`
+            );
+        });
+        zOut.addEventListener('mouseleave',hide);
+    }
+})();
+
+// ── Copy solutions ────────────────────────────────────
+function copySol(type) {
+    const {nO,nA,nB,nAB}=FS;
+    const n=fNames();
+    const {A,B}=n, nA_=n.nA, nB_=n.nB;
+    const pA=nA/nO,pB=nB/nO,pAB=nAB/nO;
+    let txt;
+
+    if(type==='prob'){
+        const pAuB=pA+pB-pAB,pNA=1-pA,pNB=1-pB;
+        const pOA=Math.max(0,pA-pAB),pOB=Math.max(0,pB-pAB),pOut=Math.max(0,1-pAuB);
+        const isXK=nAB===0,isDL=Math.abs(pAB-pA*pB)<1e-6;
+        txt=[`=== LỜI GIẢI XÁC SUẤT TẦN SỐ ===`,'',
+             `n(Ω)=${nO}, n(${A})=${nA}, n(${B})=${nB}, n(${A}∩${B})=${nAB}`,'',
+             `P(${A}) = ${nA}/${nO} = ${_sr(pA)}`,
+             `P(${B}) = ${nB}/${nO} = ${_sr(pB)}`,
+             `P(${nA_}) = ${_sr(pNA)}, P(${nB_}) = ${_sr(pNB)}`,
+             `P(${A}∩${B}) = ${nAB}/${nO} = ${_sr(pAB)}`,
+             `P(${A}∪${B}) = ${_sr(pA)}+${_sr(pB)}−${_sr(pAB)} = ${_sr(pAuB)}`,
+             `P(${A}∩${nB_}) = ${_sr(pOA)}, P(${nA_}∩${B}) = ${_sr(pOB)}`,
+             `P(${nA_}∩${nB_}) = ${_sr(pOut)}`,'',
+             `Xung khắc: ${isXK?'Có':'Không'} | Độc lập: ${isDL?'Có':'Không'}`,'',
+             `=== MathLab 12B2 — by Minh Nhựt ===`].join('\n');
+    } else {
+        const nNA=nO-nA,nNB=nO-nB,nAonly=nA-nAB,nBonly=nB-nAB;
+        const pBA=nA>0?nAB/nA:NaN, pBNA=nNA>0?nBonly/nNA:NaN;
+        const pAB2=nB>0?nAB/nB:NaN;
+        txt=[`=== LỜI GIẢI ĐIỀU KIỆN & BAYES (TẦN SỐ) ===`,'',
+             `n(Ω)=${nO}, n(${A})=${nA}, n(${B})=${nB}, n(${A}∩${B})=${nAB}`,'',
+             `P(${B}|${A}) = ${nAB}/${nA} = ${_fmt(pBA)}`,
+             `P(${B}|${nA_}) = ${nBonly}/${nNA} = ${_fmt(pBNA)}`,'',
+             `Toàn phần: P(${B}) = ${_sr(pA)}·${_fmt(pBA)} + ${_sr(1-pA)}·${_fmt(pBNA)} = ${_sr(pB)}`,'',
+             `Bayes P(${A}|${B}) = ${nAB}/${nB} = ${_fmt(pAB2)}`,'',
+             `=== MathLab 12B2 — by Minh Nhựt ===`].join('\n');
+    }
+    navigator.clipboard.writeText(txt).then(()=>{
+        const btn=document.getElementById('cpbtn-'+type);
+        if(btn){btn.textContent='✅ Đã Copy!';btn.classList.add('copied');
+        setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('copied');},2000);}
+    });
+}
+
+// ── Reset ─────────────────────────────────────────────
+function resetFreq(){
+    ['fq-nO','fq-nA','fq-nB','fq-nAB'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+    Object.assign(FS,{nO:0,nA:0,nB:0,nAB:0});
+    const placeholder='<div class="step-placeholder">Nhập dữ liệu để xem...</div>';
+    document.getElementById('fsteps-prob').innerHTML=placeholder;
+    document.getElementById('fsteps-cond').innerHTML=placeholder;
+    document.getElementById('fq-tbody').innerHTML='<tr><td colspan="4" style="color:#475569;text-align:center;padding:14px;font-style:italic;">Nhập dữ liệu để xem bảng...</td></tr>';
+    document.querySelectorAll('.fval').forEach(e=>e.innerText='—');
+    _txt('fq-status','Đã làm mới. Sẵn sàng nhận dữ liệu.');
+}
+
+// ── Hook all inputs ───────────────────────────────────
+['fq-nO','fq-nA','fq-nB','fq-nAB','f-name-A','f-name-B','f-name-notA','f-name-notB'].forEach(id=>{
+    document.getElementById(id)?.addEventListener('input', computeFreq);
+});
+</script>
 </body>
 </html>
