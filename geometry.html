@@ -978,6 +978,18 @@
         // Khởi tạo
         updateDistanceInputs();
         updateAngleInputs();
+            const openTab = sessionStorage.getItem('openTab');
+    if (openTab) {
+        sessionStorage.removeItem('openTab');
+        if (typeof setMode === 'function') {
+            setTimeout(() => {
+                if (openTab === 'distance') setMode('distance');
+                else if (openTab === 'angle') setMode('angle');
+                else if (openTab === 'area-volume') setMode('area-volume');
+            }, 100);
+        }
+    }
+
     </script>
 </body>
 </html>

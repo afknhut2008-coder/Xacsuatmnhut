@@ -923,6 +923,18 @@
             const sec = document.getElementById(id);
             if (sec) sec.classList.toggle('collapsed');
         }
+          const openTab = sessionStorage.getItem('openTab');
+    if (openTab) {
+        sessionStorage.removeItem('openTab');
+        if (typeof setMode === 'function') {
+            setTimeout(() => {
+                if (openTab === 'derivative') setMode('derivative');
+                else if (openTab === 'integral') setMode('integral');
+                else if (openTab === 'definite') setMode('definite');
+                else if (openTab === 'application') setMode('application');
+            }, 100);
+        }
+    }
     </script>
 </body>
 </html>
