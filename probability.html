@@ -434,7 +434,25 @@
                     <div class="calc-field"><label id="lbl-pNotB">P(B')</label><input type="number" id="pNotB" step="0.0001" min="0" max="1" placeholder="0" oninput="calculateClassic()"></div>
                     <div class="calc-field"><label id="lbl-pAuB">P(A∪B)</label><input type="number" id="pAuB" step="0.0001" min="0" max="1" placeholder="0" oninput="calculateClassic()"></div>
                 </div>
+                <!-- CHẾ ĐỘ NHẬP TẦN SỐ (THÊM MỚI) -->
+                <div class="mode-switch" style="margin-top: 15px; margin-bottom: 10px;">
+                    <div class="mode-btn active" onclick="setClassicInputMode('prob')" id="classic-mode-prob">📐 Nhập Xác Suất P(·)</div>
+                    <div class="mode-btn" onclick="setClassicInputMode('freq')" id="classic-mode-freq">📊 Nhập Tần Số n(·)</div>
+                </div>
 
+                <div id="classic-freq-mode" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.2); border-radius:14px; padding:12px; margin-bottom:15px;">
+                        <div class="calc-grid">
+                            <div class="calc-field"><label>n(Ω) - Không gian mẫu</label><input type="number" id="nOmega" step="1" min="1" placeholder="Tổng số" value="0" oninput="updateFromFreq()"></div>
+                            <div class="calc-field"><label>n(A)</label><input type="number" id="nA" step="1" min="0" placeholder="0" value="0" oninput="updateFromFreq()"></div>
+                            <div class="calc-field"><label>n(B)</label><input type="number" id="nB" step="1" min="0" placeholder="0" value="0" oninput="updateFromFreq()"></div>
+                            <div class="calc-field"><label>n(A∩B)</label><input type="number" id="nAnB" step="1" min="0" placeholder="0" value="0" oninput="updateFromFreq()"></div>
+                        </div>
+                        <div style="background:rgba(0,242,255,0.05); border-radius:8px; padding:6px; text-align:center; font-size:0.6rem;">
+                            📌 Xác suất = Số phần tử / Tổng số
+                        </div>
+                    </div>
+                </div>
                 <!-- Kết quả -->
                 <div class="result-grid" id="classic-results">
                     <div class="result-box c-blue"><small>P(A)</small><span class="val c-blue" id="res-pA">—</span></div>
@@ -884,4 +902,4 @@
     }
     </script>
 </body>
-</html>
+</html
