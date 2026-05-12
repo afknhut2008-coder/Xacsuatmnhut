@@ -80,65 +80,20 @@ body::after {
     user-select: none;
 }
 
-/* ========== LOGO 3D NEON ========== */
-.logo {
-    font-family: var(--font-orb);
-    font-size: 1.6rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-    position: relative;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
-    transition: 0.3s;
-}
-.logo span {
-    color: var(--neon-blue);
-    text-shadow: 0 0 5px var(--neon-blue), 0 0 15px rgba(0,242,255,0.6);
-    animation: logoPulse 3s infinite alternate;
-}
-.logo:hover {
-    text-shadow: 0 0 8px rgba(0,242,255,0.8);
-    transform: scale(1.02);
-}
-.logo:hover span {
-    animation: logoGlitch 0.3s linear;
-}
-@keyframes logoPulse {
-    0% { text-shadow: 0 0 2px var(--neon-blue), 0 0 5px rgba(0,242,255,0.4); }
-    100% { text-shadow: 0 0 10px var(--neon-blue), 0 0 30px rgba(0,242,255,0.8); }
-}
-@keyframes logoGlitch {
-    0% { transform: skew(0deg, 0deg); opacity: 1; }
-    50% { transform: skew(2deg, 1deg); text-shadow: -2px 0 var(--neon-pink); opacity: 0.9; }
-    100% { transform: skew(0deg, 0deg); text-shadow: 0 0 5px var(--neon-blue); }
-}
-
-/* ========== NAVIGATION ========== */
-nav ul { display: flex; list-style: none; gap: 5px; flex-wrap: wrap; justify-content: center; }
-nav ul li a {
-    text-decoration: none; color: var(--text-mid);
-    font-family: var(--font-viet);
-    font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 7px 14px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    transition: all 0.25s ease;
-}
-nav ul li a:hover {
-    color: var(--neon-blue);
-    border-color: var(--border-bright);
-    background: rgba(0,242,255,0.05);
-    box-shadow: 0 0 15px rgba(0,242,255,0.1);
-}
-nav ul li a.active {
-    color: #000;
-    background: var(--neon-blue);
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 20px rgba(0,242,255,0.4), 0 0 40px rgba(0,242,255,0.15);
+/* ========== BUTTON RESET — dùng cho tab & tool-item dạng button ========== */
+button.tool-item,
+button.category-header,
+button.mode-tab,
+button.sub-tab,
+button.cs-section-header {
+    background: none;
+    border: none;
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    padding: 0;
 }
 
 /* ========== CONTAINER ========== */
@@ -643,7 +598,7 @@ input[type="number"].rev-input:focus {
     padding: 14px 16px;
     background: rgba(0,0,0,0.2);
     overflow: hidden;
-    max-height: 600px;
+    max-height: 1200px;
     transition: max-height 0.35s cubic-bezier(0.23,1,0.32,1), padding 0.3s;
 }
 .cs-section.collapsed .cs-section-body {
@@ -1046,13 +1001,15 @@ input[type="number"].rev-input:focus {
     letter-spacing: 3px;
     text-transform: uppercase;
     text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    position: relative;
     background: linear-gradient(135deg, #ffffff 0%, #00f2ff 40%, #10b981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    position: relative;
     transition: all 0.3s ease;
-    text-shadow: 0 0 20px rgba(0,242,255,0.3);
 }
 
 .logo span {
@@ -1068,9 +1025,19 @@ input[type="number"].rev-input:focus {
     letter-spacing: 4px;
 }
 
+.logo:hover span {
+    animation: logoGlitch 0.3s linear;
+}
+
 @keyframes logoPulse {
-    0%, 100% { opacity: 0.8; text-shadow: 0 0 5px rgba(0,242,255,0.3); }
-    50% { opacity: 1; text-shadow: 0 0 20px rgba(0,242,255,0.8), 0 0 30px rgba(0,242,255,0.4); }
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes logoGlitch {
+    0%   { transform: skew(0deg, 0deg); opacity: 1; }
+    50%  { transform: skew(2deg, 1deg); opacity: 0.9; }
+    100% { transform: skew(0deg, 0deg); }
 }
 
 nav {

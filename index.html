@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathLab 12B2 - Toán Học Toàn Diện</title>
+    <meta name="description" content="MathLab 12B2 — Hệ thống giải toán tích hợp: Xác suất, Tích phân, Hình học Oxyz. Công cụ hỗ trợ học tập lớp 12 chuyên nghiệp.">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <style>
@@ -229,90 +230,90 @@
             <div class="category-grid">
                 <!-- 1. XÁC SUẤT -->
                 <div class="category-card">
-                    <div class="category-header" onclick="goToPage('probability.html')">
+                    <button class="category-header" onclick="goToPage('probability.html')">
                         <span class="category-icon">🎲</span>
                         <span class="category-title blue">XÁC SUẤT THỐNG KÊ</span>
-                    </div>
+                    </button>
                     <div class="category-desc">
                         Tính xác suất cổ điển, sơ đồ cây Bayes, phân tích thống kê mô tả.
                     </div>
                     <div class="tool-list">
-                        <div class="tool-item" onclick="goToPage('probability.html', 'classic')">
+                        <button class="tool-item" onclick="goToPage('probability.html', 'classic')">
                             <span>📊</span>
                             <span class="tool-name">Xác suất cổ điển</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('probability.html', 'conditional')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('probability.html', 'conditional')">
                             <span>🌿</span>
                             <span class="tool-name">Xác suất điều kiện</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('probability.html', 'statistics')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('probability.html', 'statistics')">
                             <span>📈</span>
                             <span class="tool-name">Bảng thống kê</span>
                             <span class="tool-arrow">→</span>
-                        </div>
+                            </button>
                     </div>
                 </div>
 
                 <!-- 2. TÍCH PHÂN -->
                 <div class="category-card">
-                    <div class="category-header" onclick="goToPage('integral.html')">
+                    <button class="category-header" onclick="goToPage('integral.html')">
                         <span class="category-icon">∫</span>
                         <span class="category-title green">TÍCH PHÂN</span>
-                    </div>
+                    </button>
                     <div class="category-desc">
                         Tính đạo hàm, nguyên hàm, tích phân xác định, diện tích, thể tích.
                     </div>
                     <div class="tool-list">
-                        <div class="tool-item" onclick="goToPage('integral.html', 'derivative')">
+                        <button class="tool-item" onclick="goToPage('integral.html', 'derivative')">
                             <span>📈</span>
                             <span class="tool-name">Đạo hàm f'(x)</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('integral.html', 'integral')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('integral.html', 'integral')">
                             <span>∫</span>
                             <span class="tool-name">Nguyên hàm F(x) + C</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('integral.html', 'definite')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('integral.html', 'definite')">
                             <span>🎯</span>
                             <span class="tool-name">Tích phân xác định</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('integral.html', 'application')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('integral.html', 'application')">
                             <span>📊</span>
                             <span class="tool-name">Diện tích & Thể tích tròn xoay</span>
                             <span class="tool-arrow">→</span>
-                        </div>
+                            </button>
                     </div>
                 </div>
 
                 <!-- 3. HÌNH HỌC OXYZ -->
                 <div class="category-card">
-                    <div class="category-header" onclick="goToPage('geometry.html')">
+                    <button class="category-header" onclick="goToPage('geometry.html')">
                         <span class="category-icon">📐</span>
                         <span class="category-title purple">HÌNH HỌC OXYZ</span>
-                    </div>
+                    </button>
                     <div class="category-desc">
                         Tính khoảng cách, góc, phương trình mặt phẳng, đường thẳng, diện tích, thể tích.
                     </div>
                     <div class="tool-list">
-                        <div class="tool-item" onclick="goToPage('geometry.html', 'distance')">
+                        <button class="tool-item" onclick="goToPage('geometry.html', 'distance')">
                             <span>📏</span>
                             <span class="tool-name">Khoảng cách (điểm, đường, mặt)</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('geometry.html', 'angle')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('geometry.html', 'angle')">
                             <span>📐</span>
                             <span class="tool-name">Góc (vector, đường, mặt)</span>
                             <span class="tool-arrow">→</span>
-                        </div>
-                        <div class="tool-item" onclick="goToPage('geometry.html', 'area-volume')">
+                            </button>
+                        <button class="tool-item" onclick="goToPage('geometry.html', 'area-volume')">
                             <span>📊</span>
                             <span class="tool-name">Diện tích & Thể tích khối đa diện</span>
                             <span class="tool-arrow">→</span>
-                        </div>
+                            </button>
                     </div>
                 </div>
             </div>

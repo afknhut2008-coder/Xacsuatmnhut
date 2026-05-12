@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tích Phân - MathLab 12B2</title>
+    <meta name="description" content="Tích Phân — MathLab 12B2. Đạo hàm, nguyên hàm, tích phân xác định, diện tích và thể tích tròn xoay cho học sinh lớp 12.">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
@@ -157,10 +158,10 @@
             <p class="title-sub">Đạo hàm · Nguyên hàm · Tích phân · Diện tích · Thể tích</p>
 
             <div class="mode-tabs">
-                <div class="mode-tab active" onclick="setMode('derivative')">📈 ĐẠO HÀM</div>
-                <div class="mode-tab" onclick="setMode('integral')">📐 NGUYÊN HÀM</div>
-                <div class="mode-tab" onclick="setMode('definite')">🎯 TÍCH PHÂN XÁC ĐỊNH</div>
-                <div class="mode-tab" onclick="setMode('application')">📊 ỨNG DỤNG</div>
+                <button class="mode-tab active" onclick="setMode('derivative', this)">📈 ĐẠO HÀM</button>
+                <button class="mode-tab" onclick="setMode('integral', this)">📐 NGUYÊN HÀM</button>
+                <button class="mode-tab" onclick="setMode('definite', this)">🎯 TÍCH PHÂN XÁC ĐỊNH</button>
+                <button class="mode-tab" onclick="setMode('application', this)">📊 ỨNG DỤNG</button>
             </div>
 
             <!-- ========== 1. ĐẠO HÀM ========== -->
@@ -221,9 +222,9 @@
             <!-- ========== 4. ỨNG DỤNG (3 dạng) ========== -->
             <div id="application-mode" style="display:none;">
                 <div class="sub-tabs">
-                    <div class="sub-tab active" onclick="setAppMode('area')">📏 DIỆN TÍCH HÌNH PHẲNG</div>
-                    <div class="sub-tab" onclick="setAppMode('volume-ox')">🧊 THỂ TÍCH QUAY QUANH Ox</div>
-                    <div class="sub-tab" onclick="setAppMode('volume-cut')">✂️ THỂ TÍCH VẬT THỂ BỊ CẮT</div>
+                    <button class="sub-tab active" onclick="setAppMode('area', this)">📏 DIỆN TÍCH HÌNH PHẲNG</button>
+                    <button class="sub-tab" onclick="setAppMode('volume-ox', this)">🧊 THỂ TÍCH QUAY QUANH Ox</button>
+                    <button class="sub-tab" onclick="setAppMode('volume-cut', this)">✂️ THỂ TÍCH VẬT THỂ BỊ CẮT</button>
                 </div>
 
                 <!-- Dạng 1: Diện tích hình phẳng giới hạn bởi 2 hàm -->
@@ -280,10 +281,10 @@
 
         <!-- MẪU CÚ PHÁP NHẬP HÀM -->
         <div class="cs-section" id="cs-syntax">
-            <div class="cs-section-header c-purple" onclick="toggleSection('cs-syntax')">
+            <button class="cs-section-header c-purple" onclick="toggleSection('cs-syntax')">
                 📝 MẪU CÚ PHÁP NHẬP HÀM
                 <span class="cs-chevron">▼</span>
-            </div>
+            </button>
             <div class="cs-section-body">
                 <div class="cs-formula"><div class="cs-f-name">Lũy thừa</div><div class="cs-f-math"><span style="color:var(--neon-blue);">x^n</span> → xⁿ (VD: x^2, x^3, x^(1/2))</div></div>
                 <div class="cs-formula"><div class="cs-f-name">Căn bậc hai</div><div class="cs-f-math"><span style="color:var(--neon-blue);">sqrt(x)</span> → √x</div></div>
@@ -297,52 +298,131 @@
             </div>
         </div>
 
-        <!-- Đạo hàm -->
+        <!-- Đạo hàm cơ bản -->
         <div class="cs-section" id="cs-deriv">
-            <div class="cs-section-header c-blue" onclick="toggleSection('cs-deriv')">
-                🔵 CÔNG THỨC ĐẠO HÀM
+            <button class="cs-section-header c-blue" onclick="toggleSection('cs-deriv')">
+                🔵 CÔNG THỨC ĐẠO HÀM CƠ BẢN
                 <span class="cs-chevron">▼</span>
-            </div>
+            </button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\((x^n)' = n x^{n-1}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((\sin x)' = \cos x\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((\cos x)' = -\sin x\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((\tan x)' = \frac{1}{\cos^2 x}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((e^x)' = e^x\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((\ln x)' = \frac{1}{x}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((u \pm v)' = u' \pm v'\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\((uv)' = u'v + uv'\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hàm hằng</div><div class="cs-f-math">\((c)' = 0\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Lũy thừa</div><div class="cs-f-math">\((x^n)' = n x^{n-1}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Căn bậc hai</div><div class="cs-f-math">\((\sqrt{x})' = \dfrac{1}{2\sqrt{x}}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hàm mũ tự nhiên</div><div class="cs-f-math">\((e^x)' = e^x\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hàm mũ tổng quát</div><div class="cs-f-math">\((a^x)' = a^x \ln a\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Logarit tự nhiên</div><div class="cs-f-math">\((\ln x)' = \dfrac{1}{x}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Logarit cơ số a</div><div class="cs-f-math">\((\log_a x)' = \dfrac{1}{x \ln a}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Sin</div><div class="cs-f-math">\((\sin x)' = \cos x\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Cos</div><div class="cs-f-math">\((\cos x)' = -\sin x\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Tan</div><div class="cs-f-math">\((\tan x)' = \dfrac{1}{\cos^2 x}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Cot</div><div class="cs-f-math">\((\cot x)' = -\dfrac{1}{\sin^2 x}\)</div></div>
+            </div>
+        </div>
+
+        <!-- Quy tắc đạo hàm -->
+        <div class="cs-section collapsed" id="cs-deriv-rule">
+            <button class="cs-section-header c-blue" onclick="toggleSection('cs-deriv-rule')">
+                🔵 QUY TẮC ĐẠO HÀM
+                <span class="cs-chevron">▼</span>
+            </button>
+            <div class="cs-section-body">
+                <div class="cs-formula"><div class="cs-f-name">Tổng / Hiệu</div><div class="cs-f-math">\((u \pm v)' = u' \pm v'\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Tích</div><div class="cs-f-math">\((uv)' = u'v + uv'\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thương</div><div class="cs-f-math">\(\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hàm hợp (Chain rule)</div><div class="cs-f-math">\([f(g(x))]' = f'(g(x)) \cdot g'(x)\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">VD: \((e^{u})' = e^u \cdot u'\)</div><div class="cs-f-math">\((\sin u)' = \cos u \cdot u'\)</div><div class="cs-f-math">\((\ln u)' = \dfrac{u'}{u}\)</div></div>
             </div>
         </div>
 
         <!-- Nguyên hàm -->
         <div class="cs-section" id="cs-int">
-            <div class="cs-section-header c-green" onclick="toggleSection('cs-int')">
-                🟢 NGUYÊN HÀM
+            <button class="cs-section-header c-green" onclick="toggleSection('cs-int')">
+                🟢 NGUYÊN HÀM CƠ BẢN
                 <span class="cs-chevron">▼</span>
-            </div>
+            </button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\int \frac{1}{x} dx = \ln|x| + C\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\int \sin x dx = -\cos x + C\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\int \cos x dx = \sin x + C\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\int e^x dx = e^x + C\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\int a^x dx = \frac{a^x}{\ln a} + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hằng số</div><div class="cs-f-math">\(\int k\, dx = kx + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Lũy thừa \((n \neq -1)\)</div><div class="cs-f-math">\(\int x^n dx = \dfrac{x^{n+1}}{n+1} + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Nghịch đảo</div><div class="cs-f-math">\(\int \dfrac{1}{x} dx = \ln|x| + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Căn bậc hai</div><div class="cs-f-math">\(\int \sqrt{x}\, dx = \dfrac{2}{3}x^{3/2} + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Mũ tự nhiên</div><div class="cs-f-math">\(\int e^x dx = e^x + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Mũ cơ số a</div><div class="cs-f-math">\(\int a^x dx = \dfrac{a^x}{\ln a} + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Sin</div><div class="cs-f-math">\(\int \sin x\, dx = -\cos x + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Cos</div><div class="cs-f-math">\(\int \cos x\, dx = \sin x + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Tan</div><div class="cs-f-math">\(\int \tan x\, dx = -\ln|\cos x| + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Cot</div><div class="cs-f-math">\(\int \cot x\, dx = \ln|\sin x| + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">\(\frac{1}{1+x^2}\)</div><div class="cs-f-math">\(\int \dfrac{1}{1+x^2} dx = \arctan x + C\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">\(\frac{1}{\sqrt{1-x^2}}\)</div><div class="cs-f-math">\(\int \dfrac{1}{\sqrt{1-x^2}} dx = \arcsin x + C\)</div></div>
+            </div>
+        </div>
+
+        <!-- Phương pháp tích phân -->
+        <div class="cs-section collapsed" id="cs-int-method">
+            <button class="cs-section-header c-green" onclick="toggleSection('cs-int-method')">
+                🟢 PHƯƠNG PHÁP TÍCH PHÂN
+                <span class="cs-chevron">▼</span>
+            </button>
+            <div class="cs-section-body">
+                <div class="cs-formula">
+                    <div class="cs-f-name">Tích phân từng phần</div>
+                    <div class="cs-f-math">\(\int u\, dv = uv - \int v\, du\)</div>
+                    <div class="cs-f-note">Chọn u theo LIATE: Logarit → Nghịch giác → Đại số → Lượng giác → Mũ</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Đổi biến (t = g(x))</div>
+                    <div class="cs-f-math">\(\int f(g(x))g'(x)\,dx = \int f(t)\,dt\)</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Newton–Leibniz</div>
+                    <div class="cs-f-math">\(\int_a^b f(x)\,dx = F(b) - F(a)\)</div>
+                    <div class="cs-f-note">F(x) là nguyên hàm của f(x)</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Tích phân từng phần (xác định)</div>
+                    <div class="cs-f-math">\(\int_a^b u\,dv = \bigl[uv\bigr]_a^b - \int_a^b v\,du\)</div>
+                </div>
             </div>
         </div>
 
         <!-- Ứng dụng -->
         <div class="cs-section" id="cs-app">
-            <div class="cs-section-header c-yellow" onclick="toggleSection('cs-app')">
+            <button class="cs-section-header c-yellow" onclick="toggleSection('cs-app')">
                 🟡 ỨNG DỤNG TÍCH PHÂN
                 <span class="cs-chevron">▼</span>
-            </div>
+            </button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-name">Diện tích hình phẳng</div><div class="cs-f-math">\(S = \int_a^b |f(x)-g(x)| dx\)</div></div>
-                <div class="cs-formula"><div class="cs-f-name">Thể tích tròn xoay (Ox)</div><div class="cs-f-math">\(V = \pi \int_a^b [f(x)]^2 dx\)</div></div>
-                <div class="cs-formula"><div class="cs-f-name">Thể tích vật thể (biết S(x))</div><div class="cs-f-math">\(V = \int_a^b S(x) dx\)</div></div>
-                <div class="cs-formula"><div class="cs-f-name">Thể tích tròn xoay (Oy)</div><div class="cs-f-math">\(V = \pi \int_{y_1}^{y_2} [x(y)]^2 dy\)</div></div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Diện tích hình phẳng (f ≥ g)</div>
+                    <div class="cs-f-math">\(S = \int_a^b [f(x)-g(x)]\, dx\)</div>
+                    <div class="cs-f-note">Nếu không rõ dấu: \(S = \int_a^b |f(x)-g(x)|\, dx\)</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Diện tích quanh trục Ox</div>
+                    <div class="cs-f-math">\(S = \int_a^b |f(x)|\, dx\)</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Thể tích tròn xoay quanh Ox</div>
+                    <div class="cs-f-math">\(V = \pi \int_a^b [f(x)]^2\, dx\)</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Thể tích tròn xoay quanh Oy</div>
+                    <div class="cs-f-math">\(V = \pi \int_{c}^{d} [x(y)]^2\, dy\)</div>
+                    <div class="cs-f-note">Đổi biến: viết x theo y, đổi cận sang y</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Thể tích giữa 2 hàm quanh Ox</div>
+                    <div class="cs-f-math">\(V = \pi \int_a^b \bigl([f(x)]^2 - [g(x)]^2\bigr)\, dx\)</div>
+                    <div class="cs-f-note">f(x) ≥ g(x) ≥ 0</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Thể tích vật thể (biết S(x))</div>
+                    <div class="cs-f-math">\(V = \int_a^b S(x)\, dx\)</div>
+                    <div class="cs-f-note">S(x): diện tích mặt cắt vuông góc trục Ox</div>
+                </div>
+                <div class="cs-formula">
+                    <div class="cs-f-name">Độ dài đường cong</div>
+                    <div class="cs-f-math">\(L = \int_a^b \sqrt{1 + [f'(x)]^2}\, dx\)</div>
+                </div>
             </div>
         </div>
     </div>
@@ -353,25 +433,26 @@
         let currentAppMode = 'area';
 
         // ========== CHUYỂN TAB ==========
-        function setMode(mode) {
+        function setMode(mode, el) {
             currentMode = mode;
             document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            // Tìm button đúng dù click vào text con bên trong
+            const btn = el ? el.closest('.mode-tab') || el : document.querySelector(`.mode-tab[onclick*="'${mode}'"]`);
+            if (btn) btn.classList.add('active');
             document.getElementById('derivative-mode').style.display = mode === 'derivative' ? 'block' : 'none';
             document.getElementById('integral-mode').style.display = mode === 'integral' ? 'block' : 'none';
             document.getElementById('definite-mode').style.display = mode === 'definite' ? 'block' : 'none';
             document.getElementById('application-mode').style.display = mode === 'application' ? 'block' : 'none';
         }
 
-        function setAppMode(mode) {
+        function setAppMode(mode, el) {
             currentAppMode = mode;
             document.querySelectorAll('#application-mode .sub-tab').forEach(t => t.classList.remove('active'));
+            const btn = el ? el.closest('.sub-tab') || el : document.querySelector(`#application-mode .sub-tab[onclick*="'${mode}'"]`);
+            if (btn) btn.classList.add('active');
             document.getElementById('app-area').style.display = mode === 'area' ? 'block' : 'none';
             document.getElementById('app-volume-ox').style.display = mode === 'volume-ox' ? 'block' : 'none';
             document.getElementById('app-volume-cut').style.display = mode === 'volume-cut' ? 'block' : 'none';
-            if (mode === 'area') document.querySelector('#application-mode .sub-tabs .sub-tab:first-child').classList.add('active');
-            else if (mode === 'volume-ox') document.querySelector('#application-mode .sub-tabs .sub-tab:nth-child(2)').classList.add('active');
-            else document.querySelector('#application-mode .sub-tabs .sub-tab:last-child').classList.add('active');
         }
 
         // ========== HÀM TOÁN HỌC ==========
@@ -573,10 +654,18 @@
         function copyVolumeCutSolution() { const steps = document.getElementById('vol-cut-steps-container').innerText; navigator.clipboard.writeText("=== THỂ TÍCH VẬT THỂ ===\n"+steps); const btn=document.querySelector('#vol-cut-steps .copy-sol-btn'); btn.textContent='✅ Đã Copy!'; setTimeout(()=>btn.textContent='📋 Copy',2000); }
 
         // ========== CHEAT SHEET ==========
-        // toggleCS() và toggleSection() được định nghĩa trong script.js (dùng chung)
+        // toggleCS() và toggleSection() được load từ script.js (bên dưới)
 
-        setMode('derivative');
-        setAppMode('area');
+        // Khởi tạo tab mặc định
+        document.querySelector('.mode-tab').classList.add('active');
+        document.getElementById('derivative-mode').style.display = 'block';
+        document.getElementById('integral-mode').style.display = 'none';
+        document.getElementById('definite-mode').style.display = 'none';
+        document.getElementById('application-mode').style.display = 'none';
+        document.getElementById('app-area').style.display = 'block';
+        document.getElementById('app-volume-ox').style.display = 'none';
+        document.getElementById('app-volume-cut').style.display = 'none';
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

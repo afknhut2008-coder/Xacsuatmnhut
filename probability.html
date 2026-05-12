@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xác Suất - MathLab 12B2</title>
+    <meta name="description" content="Xác Suất & Thống Kê — MathLab 12B2. Tính xác suất cổ điển, sơ đồ cây Bayes, thống kê mô tả cho học sinh lớp 12.">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <style>
@@ -560,9 +561,9 @@
 
             <!-- Sub tabs -->
             <div class="sub-tabs">
-                <div class="sub-tab active" onclick="switchTab('classic')">📊 XÁC SUẤT CỔ ĐIỂN</div>
-                <div class="sub-tab" onclick="switchTab('conditional')">🌿 SƠ ĐỒ CÂY & BAYES</div>
-                <div class="sub-tab" onclick="switchTab('statistics')">📈 THỐNG KÊ MÔ TẢ</div>
+                <button class="sub-tab active" onclick="switchTab('classic')">📊 XÁC SUẤT CỔ ĐIỂN</button>
+                <button class="sub-tab" onclick="switchTab('conditional')">🌿 SƠ ĐỒ CÂY & BAYES</button>
+                <button class="sub-tab" onclick="switchTab('statistics')">📈 THỐNG KÊ MÔ TẢ</button>
             </div>
 
             <!-- ========== TAB 1: XÁC SUẤT CỔ ĐIỂN ========== -->
@@ -843,7 +844,7 @@
 
         <!-- 1. XÁC SUẤT CƠ BẢN -->
         <div class="cs-section" id="cs-basic">
-            <div class="cs-section-header c-blue" onclick="toggleSection('cs-basic')">🔵 XÁC SUẤT CƠ BẢN <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-blue" onclick="toggleSection('cs-basic')">🔵 XÁC SUẤT CƠ BẢN <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Xác suất cổ điển</div>
@@ -867,7 +868,7 @@
 
         <!-- 2. PHÉP TOÁN BIẾN CỐ -->
         <div class="cs-section" id="cs-ops">
-            <div class="cs-section-header c-green" onclick="toggleSection('cs-ops')">🟢 PHÉP TOÁN BIẾN CỐ <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-green" onclick="toggleSection('cs-ops')">🟢 PHÉP TOÁN BIẾN CỐ <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Hợp (cộng xác suất)</div>
@@ -905,7 +906,7 @@
 
         <!-- 3. XÁC SUẤT CÓ ĐIỀU KIỆN -->
         <div class="cs-section" id="cs-cond">
-            <div class="cs-section-header c-yellow" onclick="toggleSection('cs-cond')">🟡 XÁC SUẤT CÓ ĐIỀU KIỆN <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-yellow" onclick="toggleSection('cs-cond')">🟡 XÁC SUẤT CÓ ĐIỀU KIỆN <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Định nghĩa</div>
@@ -925,7 +926,7 @@
 
         <!-- 4. XÁC SUẤT TOÀN PHẦN & BAYES -->
         <div class="cs-section" id="cs-bayes">
-            <div class="cs-section-header c-purple" onclick="toggleSection('cs-bayes')">🟣 TOÀN PHẦN & BAYES <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-purple" onclick="toggleSection('cs-bayes')">🟣 TOÀN PHẦN & BAYES <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Phân hoạch không gian mẫu</div>
@@ -952,7 +953,7 @@
 
         <!-- 5. TỔ HỢP & CHỈNH HỢP -->
         <div class="cs-section" id="cs-comb">
-            <div class="cs-section-header c-pink" onclick="toggleSection('cs-comb')">🔴 TỔ HỢP & CHỈNH HỢP <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-pink" onclick="toggleSection('cs-comb')">🔴 TỔ HỢP & CHỈNH HỢP <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Hoán vị n phần tử</div>
@@ -982,7 +983,7 @@
 
         <!-- 6. PHÂN PHỐI XÁC SUẤT -->
         <div class="cs-section" id="cs-dist">
-            <div class="cs-section-header c-orange" onclick="toggleSection('cs-dist')">🟠 PHÂN PHỐI XÁC SUẤT <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-orange" onclick="toggleSection('cs-dist')">🟠 PHÂN PHỐI XÁC SUẤT <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Phân phối Bernoulli (nhị thức)</div>
@@ -1011,7 +1012,7 @@
 
         <!-- 7. THỐNG KÊ MÔ TẢ -->
         <div class="cs-section" id="cs-stats">
-            <div class="cs-section-header c-green" onclick="toggleSection('cs-stats')">🟢 THỐNG KÊ MÔ TẢ <span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-green" onclick="toggleSection('cs-stats')">🟢 THỐNG KÊ MÔ TẢ <span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
                 <div class="cs-formula">
                     <div class="cs-f-name">Trung bình (số liệu ghép nhóm)</div>

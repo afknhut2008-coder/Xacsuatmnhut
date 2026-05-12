@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hình học Oxyz - MathLab 12B2</title>
+    <meta name="description" content="Hình Học Oxyz — MathLab 12B2. Khoảng cách, góc, phương trình mặt phẳng, đường thẳng, diện tích, thể tích và đồ thị 3D.">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -353,10 +354,10 @@
 
             <!-- Main tabs -->
             <div class="mode-tabs">
-                <div class="mode-tab" onclick="setMode('distance', this)">📏 KHOẢNG CÁCH</div>
-                <div class="mode-tab" onclick="setMode('angle', this)">📐 GÓC</div>
-                <div class="mode-tab" onclick="setMode('area-volume', this)">📊 DT / TT ĐA DIỆN</div>
-                <div class="mode-tab active" onclick="setMode('graph3d', this)">🎨 ĐỒ THỊ 3D</div>
+                <button class="mode-tab" onclick="setMode('distance', this)">📏 KHOẢNG CÁCH</button>
+                <button class="mode-tab" onclick="setMode('angle', this)">📐 GÓC</button>
+                <button class="mode-tab" onclick="setMode('area-volume', this)">📊 DT / TT ĐA DIỆN</button>
+                <button class="mode-tab active" onclick="setMode('graph3d', this)">🎨 ĐỒ THỊ 3D</button>
             </div>
 
             <!-- ========== 1. KHOẢNG CÁCH ========== -->
@@ -416,8 +417,8 @@
             <!-- ========== 3. DIỆN TÍCH / THỂ TÍCH ĐA DIỆN ========== -->
             <div id="area-volume-mode" style="display:none;">
                 <div class="sub-tabs">
-                    <div class="sub-tab active" onclick="setAreaVolMode('area')">📐 DIỆN TÍCH ĐA GIÁC</div>
-                    <div class="sub-tab" onclick="setAreaVolMode('volume')">🧊 THỂ TÍCH KHỐI ĐA DIỆN</div>
+                    <button class="sub-tab active" onclick="setAreaVolMode('area')">📐 DIỆN TÍCH ĐA GIÁC</button>
+                    <button class="sub-tab" onclick="setAreaVolMode('volume')">🧊 THỂ TÍCH KHỐI ĐA DIỆN</button>
                 </div>
                 <div id="area-submode">
                     <div class="select-group">
@@ -473,9 +474,9 @@
                 <!-- Tính năng ứng dụng -->
                 <div class="select-group">
                     <div class="sub-tabs" style="margin-bottom:15px;">
-                        <div class="sub-tab active" onclick="setAppCalcMode('volume')">🧊 THỂ TÍCH DƯỚI MẶT</div>
-                        <div class="sub-tab" onclick="setAppCalcMode('surface')">📐 DIỆN TÍCH MẶT CONG</div>
-                        <div class="sub-tab" onclick="setAppCalcMode('solid')">🏔️ THỂ TÍCH GIỮA 2 MẶT</div>
+                        <button class="sub-tab active" onclick="setAppCalcMode('volume')">🧊 THỂ TÍCH DƯỚI MẶT</button>
+                        <button class="sub-tab" onclick="setAppCalcMode('surface')">📐 DIỆN TÍCH MẶT CONG</button>
+                        <button class="sub-tab" onclick="setAppCalcMode('solid')">🏔️ THỂ TÍCH GIỮA 2 MẶT</button>
                     </div>
                     
                     <div id="app-calc-volume">
@@ -530,90 +531,110 @@
     <div class="cs-sidebar" id="cs-sidebar">
         <div class="cs-header"><h3>📐 CHEAT SHEET - OXYZ</h3><button class="cs-close" onclick="toggleCS()">✕</button></div>
         
-        <div class="cs-section" id="cs-dist">
-            <div class="cs-section-header c-blue" onclick="toggleSection('cs-dist')">📏 KHOẢNG CÁCH<span class="cs-chevron">▼</span></div>
+        <!-- Vector & tích -->
+        <div class="cs-section" id="cs-vec">
+            <button class="cs-section-header c-blue" onclick="toggleSection('cs-vec')">🔵 VECTOR & PHÉP TÍNH<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(d(A,B)=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(d(M,(P))=\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(d(M,\Delta)=\frac{|[\vec{AM},\vec{u}]|}{|\vec{u}|}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(d(\Delta_1,\Delta_2)=\frac{|[\vec{u_1},\vec{u_2}]\cdot\vec{A_1A_2}|}{\|[\vec{u_1},\vec{u_2}]\|}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Tích vô hướng (dot product)</div><div class="cs-f-math">\(\vec{u}\cdot\vec{v}=x_1x_2+y_1y_2+z_1z_2\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Độ dài vector</div><div class="cs-f-math">\(|\vec{u}|=\sqrt{x^2+y^2+z^2}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Tích có hướng (cross product)</div><div class="cs-f-math">\([\vec{u},\vec{v}]=\begin{vmatrix}\vec{i}&\vec{j}&\vec{k}\\x_1&y_1&z_1\\x_2&y_2&z_2\end{vmatrix}\)</div><div class="cs-f-math">\(=(y_1z_2-z_1y_2,\ z_1x_2-x_1z_2,\ x_1y_2-y_1x_2)\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Tích hỗn hợp (scalar triple)</div><div class="cs-f-math">\([\vec{a},\vec{b}]\cdot\vec{c}=\begin{vmatrix}x_1&y_1&z_1\\x_2&y_2&z_2\\x_3&y_3&z_3\end{vmatrix}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hai vector vuông góc</div><div class="cs-f-math">\(\vec{u}\perp\vec{v} \Leftrightarrow \vec{u}\cdot\vec{v}=0\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hai vector song song</div><div class="cs-f-math">\(\vec{u}\parallel\vec{v} \Leftrightarrow [\vec{u},\vec{v}]=\vec{0}\)</div><div class="cs-f-note">Hoặc: \(\frac{x_1}{x_2}=\frac{y_1}{y_2}=\frac{z_1}{z_2}\)</div></div>
+            </div>
+        </div>
+
+        <div class="cs-section" id="cs-dist">
+            <button class="cs-section-header c-blue" onclick="toggleSection('cs-dist')">📏 KHOẢNG CÁCH<span class="cs-chevron">▼</span></button>
+            <div class="cs-section-body">
+                <div class="cs-formula"><div class="cs-f-name">Hai điểm A, B</div><div class="cs-f-math">\(d(A,B)=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Điểm M đến mặt phẳng (P): ax+by+cz+d=0</div><div class="cs-f-math">\(d(M,(P))=\dfrac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Điểm M đến đường thẳng Δ (qua A, VTCP u)</div><div class="cs-f-math">\(d(M,\Delta)=\dfrac{|\overrightarrow{AM}\times\vec{u}|}{|\vec{u}|}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hai đường thẳng chéo nhau</div><div class="cs-f-math">\(d(\Delta_1,\Delta_2)=\dfrac{|[\vec{u_1},\vec{u_2}]\cdot\overrightarrow{A_1A_2}|}{|[\vec{u_1},\vec{u_2}]|}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Điểm đến đường thẳng (công thức 2)</div><div class="cs-f-math">\(d(M,\Delta)=\sqrt{|AM|^2 - \left(\dfrac{\overrightarrow{AM}\cdot\vec{u}}{|\vec{u}|}\right)^2}\)</div></div>
             </div>
         </div>
         
         <div class="cs-section" id="cs-angle">
-            <div class="cs-section-header c-green" onclick="toggleSection('cs-angle')">📐 GÓC<span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-green" onclick="toggleSection('cs-angle')">📐 GÓC<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(\cos\varphi=\frac{|\vec{u}\cdot\vec{v}|}{|\vec{u}||\vec{v}|}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\sin\varphi=\frac{|\vec{u}\cdot\vec{n}|}{|\vec{u}||\vec{n}|}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\cos\varphi=\frac{|\vec{n_1}\cdot\vec{n_2}|}{|\vec{n_1}||\vec{n_2}|}\)</div></div>
-            </div>
-        </div>
-        
-        <div class="cs-section" id="cs-area-vol">
-            <div class="cs-section-header c-yellow" onclick="toggleSection('cs-area-vol')">📊 DT & TT ĐA DIỆN<span class="cs-chevron">▼</span></div>
-            <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(S_{\triangle ABC}=\frac{1}{2}|\vec{AB}\times\vec{AC}|\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(S_{\text{đa giác}}=\frac{1}{2}\left|\sum_{i=1}^n \vec{OA_i}\times\vec{OA_{i+1}}\right|\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(V_{\text{tứ diện}}=\frac{1}{6}|[\vec{AB},\vec{AC}]\cdot\vec{AD}|\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(V_{\text{hình hộp}}=|[\vec{AB},\vec{AC}]\cdot\vec{AD}|\)</div></div>
-            </div>
-        </div>
-        
-        <div class="cs-section" id="cs-surface">
-            <div class="cs-section-header c-purple" onclick="toggleSection('cs-surface')">📈 MẶT CONG & ỨNG DỤNG<span class="cs-chevron">▼</span></div>
-            <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(V_{\text{dưới mặt}}=\iint_D f(x,y)dxdy\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(S_{\text{mặt cong}}=\iint_D\sqrt{1+z_x^2+z_y^2}dxdy\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(V_{\text{giữa 2 mặt}}=\iint_D (z_{\text{trên}}-z_{\text{dưới}})dxdy\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Góc giữa 2 vector</div><div class="cs-f-math">\(\cos\theta=\dfrac{\vec{u}\cdot\vec{v}}{|\vec{u}||\vec{v}|}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Góc giữa 2 đường thẳng (VTCP u₁, u₂)</div><div class="cs-f-math">\(\cos\varphi=\dfrac{|\vec{u_1}\cdot\vec{u_2}|}{|\vec{u_1}||\vec{u_2}|}\)</div><div class="cs-f-note">Góc giữa 2 đường thẳng: 0° ≤ φ ≤ 90°</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Góc giữa đường thẳng và mặt phẳng</div><div class="cs-f-math">\(\sin\varphi=\dfrac{|\vec{u}\cdot\vec{n}|}{|\vec{u}||\vec{n}|}\)</div><div class="cs-f-note">u: VTCP đường thẳng, n: VTPT mặt phẳng</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Góc giữa 2 mặt phẳng (VTPT n₁, n₂)</div><div class="cs-f-math">\(\cos\varphi=\dfrac{|\vec{n_1}\cdot\vec{n_2}|}{|\vec{n_1}||\vec{n_2}|}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Vuông góc / Song song</div><div class="cs-f-math">Đường ⊥ MP: \(\vec{u}\parallel\vec{n}\)</div><div class="cs-f-math">Đường ∥ MP: \(\vec{u}\perp\vec{n}\)</div><div class="cs-f-math">MP ⊥ MP: \(\vec{n_1}\perp\vec{n_2}\)</div><div class="cs-f-math">MP ∥ MP: \(\vec{n_1}\parallel\vec{n_2}\)</div></div>
             </div>
         </div>
         
         <div class="cs-section" id="cs-line">
-            <div class="cs-section-header c-blue" onclick="toggleSection('cs-line')">📈 ĐƯỜNG THẲNG<span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-blue" onclick="toggleSection('cs-line')">📈 ĐƯỜNG THẲNG<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(\frac{x-x_0}{a}=\frac{y-y_0}{b}=\frac{z-z_0}{c}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\begin{cases}x=x_0+at\\y=y_0+bt\\z=z_0+ct\end{cases}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Phương trình tham số (qua A(x₀,y₀,z₀), VTCP u(a,b,c))</div><div class="cs-f-math">\(\begin{cases}x=x_0+at\\y=y_0+bt\\z=z_0+ct\end{cases},\quad t\in\mathbb{R}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Phương trình chính tắc</div><div class="cs-f-math">\(\dfrac{x-x_0}{a}=\dfrac{y-y_0}{b}=\dfrac{z-z_0}{c}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">VTCP từ 2 điểm A, B</div><div class="cs-f-math">\(\vec{u}=\overrightarrow{AB}=(x_B-x_A,\ y_B-y_A,\ z_B-z_A)\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Giao điểm 2 đường thẳng</div><div class="cs-f-note">Giải hệ phương trình tham số bằng cách đặt t₁ và t₂, so sánh x, y, z</div></div>
             </div>
         </div>
         
         <div class="cs-section" id="cs-plane">
-            <div class="cs-section-header c-green" onclick="toggleSection('cs-plane')">📄 MẶT PHẲNG<span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-green" onclick="toggleSection('cs-plane')">📄 MẶT PHẲNG<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(A(x-x_0)+B(y-y_0)+C(z-z_0)=0\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(Ax+By+Cz+D=0\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">PT qua A(x₀,y₀,z₀), VTPT n(a,b,c)</div><div class="cs-f-math">\(a(x-x_0)+b(y-y_0)+c(z-z_0)=0\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Phương trình tổng quát</div><div class="cs-f-math">\(Ax+By+Cz+D=0\)</div><div class="cs-f-note">VTPT: \(\vec{n}=(A,B,C)\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">VTPT từ 3 điểm A, B, C</div><div class="cs-f-math">\(\vec{n}=\overrightarrow{AB}\times\overrightarrow{AC}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">PT đi qua 3 điểm A, B, C</div><div class="cs-f-note">Tìm \(\vec{n}=\overrightarrow{AB}\times\overrightarrow{AC}\), rồi dùng công thức PT mặt phẳng qua A với VTPT n</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Mặt phẳng đoạn chắn \(\frac{x}{a}+\frac{y}{b}+\frac{z}{c}=1\)</div><div class="cs-f-note">Cắt Ox tại (a,0,0), Oy tại (0,b,0), Oz tại (0,0,c)</div></div>
+            </div>
+        </div>
+        
+        <div class="cs-section" id="cs-area-vol">
+            <button class="cs-section-header c-yellow" onclick="toggleSection('cs-area-vol')">📊 DT & TT ĐA DIỆN<span class="cs-chevron">▼</span></button>
+            <div class="cs-section-body">
+                <div class="cs-formula"><div class="cs-f-name">Diện tích tam giác ABC</div><div class="cs-f-math">\(S_{\triangle ABC}=\dfrac{1}{2}|\overrightarrow{AB}\times\overrightarrow{AC}|\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thể tích tứ diện ABCD</div><div class="cs-f-math">\(V=\dfrac{1}{6}|[\overrightarrow{AB},\overrightarrow{AC}]\cdot\overrightarrow{AD}|\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thể tích hình hộp (song song a, b, c)</div><div class="cs-f-math">\(V=|[\vec{a},\vec{b}]\cdot\vec{c}|\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thể tích lăng trụ ABC.A'B'C'</div><div class="cs-f-math">\(V=S_{\triangle ABC}\cdot h\)</div><div class="cs-f-note">h: chiều cao lăng trụ (= độ dài cạnh bên nếu lăng trụ đứng)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thể tích chóp</div><div class="cs-f-math">\(V=\dfrac{1}{3}S_{đáy}\cdot h\)</div></div>
             </div>
         </div>
         
         <div class="cs-section" id="cs-sphere">
-            <div class="cs-section-header c-yellow" onclick="toggleSection('cs-sphere')">⚪ MẶT CẦU<span class="cs-chevron">▼</span></div>
+            <button class="cs-section-header c-yellow" onclick="toggleSection('cs-sphere')">⚪ MẶT CẦU<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\((x-a)^2+(y-b)^2+(z-c)^2=R^2\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(x^2+y^2+z^2-2ax-2by-2cz+d=0\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Phương trình chuẩn (tâm I(a,b,c), bán kính R)</div><div class="cs-f-math">\((x-a)^2+(y-b)^2+(z-c)^2=R^2\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Phương trình tổng quát</div><div class="cs-f-math">\(x^2+y^2+z^2-2ax-2by-2cz+d=0\)</div><div class="cs-f-note">Tâm I(a,b,c), bán kính \(R=\sqrt{a^2+b^2+c^2-d}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Mặt cầu qua 4 điểm</div><div class="cs-f-note">Thế tọa độ 4 điểm vào PT tổng quát, giải hệ 4 ẩn a, b, c, d</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Diện tích & thể tích mặt cầu</div><div class="cs-f-math">\(S=4\pi R^2,\quad V=\dfrac{4}{3}\pi R^3\)</div></div>
             </div>
         </div>
         
-        <div class="cs-section" id="cs-cylinder">
-            <div class="cs-section-header c-pink" onclick="toggleSection('cs-cylinder')">🧴 MẶT TRỤ<span class="cs-chevron">▼</span></div>
+        <div class="cs-section collapsed" id="cs-cylinder">
+            <button class="cs-section-header c-pink" onclick="toggleSection('cs-cylinder')">🧴 MẶT TRỤ & ELLIPSOID<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(x^2+y^2=R^2\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Mặt trụ tròn (trục Oz, bán kính R)</div><div class="cs-f-math">\(x^2+y^2=R^2\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Mặt trụ ellipse</div><div class="cs-f-math">\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Ellipsoid</div><div class="cs-f-math">\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}=1\)</div></div>
             </div>
         </div>
         
-        <div class="cs-section" id="cs-paraboloid">
-            <div class="cs-section-header c-purple" onclick="toggleSection('cs-paraboloid')">🏔️ PARABOLOID<span class="cs-chevron">▼</span></div>
+        <div class="cs-section collapsed" id="cs-paraboloid">
+            <button class="cs-section-header c-purple" onclick="toggleSection('cs-paraboloid')">🏔️ PARABOLOID & HYPERBOLOID<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(z=\frac{x^2}{a^2}+\frac{y^2}{b^2}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(z=\frac{x^2}{a^2}-\frac{y^2}{b^2}\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(z=x^2+y^2\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Paraboloid tròn xoay</div><div class="cs-f-math">\(z=x^2+y^2\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Paraboloid elliptic</div><div class="cs-f-math">\(z=\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Paraboloid hyperbolic (yên ngựa)</div><div class="cs-f-math">\(z=\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hyperboloid 1 tầng</div><div class="cs-f-math">\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}-\dfrac{z^2}{c^2}=1\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Hyperboloid 2 tầng</div><div class="cs-f-math">\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}-\dfrac{z^2}{c^2}=-1\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Nón (cone)</div><div class="cs-f-math">\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=\dfrac{z^2}{c^2}\)</div></div>
             </div>
         </div>
-        
-        <div class="cs-section" id="cs-hyperboloid">
-            <div class="cs-section-header c-orange" onclick="toggleSection('cs-hyperboloid')">⏳ HYPERBOLOID<span class="cs-chevron">▼</span></div>
+
+        <div class="cs-section collapsed" id="cs-surface">
+            <button class="cs-section-header c-purple" onclick="toggleSection('cs-surface')">📈 MẶT CONG & TÍCH PHÂN KÉP<span class="cs-chevron">▼</span></button>
             <div class="cs-section-body">
-                <div class="cs-formula"><div class="cs-f-math">\(\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2}=1\)</div></div>
-                <div class="cs-formula"><div class="cs-f-math">\(\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2}=-1\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thể tích dưới mặt z=f(x,y)</div><div class="cs-f-math">\(V=\iint_D f(x,y)\,dxdy\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Diện tích mặt cong z=f(x,y)</div><div class="cs-f-math">\(S=\iint_D\sqrt{1+z_x^2+z_y^2}\,dxdy\)</div></div>
+                <div class="cs-formula"><div class="cs-f-name">Thể tích giữa 2 mặt</div><div class="cs-f-math">\(V=\iint_D (z_{\text{trên}}-z_{\text{dưới}})\,dxdy\)</div></div>
             </div>
         </div>
     </div>
@@ -984,10 +1005,11 @@
         function changeColor(el) { const colors=['#00f2ff','#10b981','#ffe500','#ff2d78','#bf5fff','#fb923c']; const cur=el.style.backgroundColor; let next=(colors.indexOf(cur)+1)%colors.length; if(next===-1) next=0; el.style.backgroundColor=colors[next]; updateGraph(); }
         function resetGraph() { document.getElementById('function-list').innerHTML = `<div class="func-item"><span style="color:#00f2ff;">z₁ =</span><input type="text" class="func-expr" value="sin(x)*cos(y)" oninput="updateGraph()"><div class="func-color" style="background:#00f2ff;" onclick="changeColor(this)"></div><button class="btn-small" onclick="removeFunction(this)">✖</button></div>`; updateGraph(); }
 
-        // toggleCS() và toggleSection() được định nghĩa trong script.js (dùng chung)
+        // toggleCS() và toggleSection() được load từ script.js (bên dưới)
         updateDistanceInputs();
         updateAngleInputs();
         setTimeout(() => { init3D(); updateGraph(); }, 100);
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
