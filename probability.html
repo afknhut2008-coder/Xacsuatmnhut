@@ -355,6 +355,186 @@
             .stats-grid { grid-template-columns: 1fr; }
             .tree-row { flex-direction: column; }
         }
+
+        /* ========== CHẾ ĐỘ NHẬP ========== */
+        .mode-selector-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .mode-selector-label {
+            font-family: var(--font-orb);
+            font-size: 0.72rem;
+            color: var(--text-mid);
+        }
+        .mode-selector-btns {
+            display: flex;
+            gap: 8px;
+        }
+        .mode-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-orb);
+            font-size: 0.68rem;
+            font-weight: 700;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-mid);
+            transition: all 0.25s;
+        }
+        .mode-btn.active {
+            background: rgba(0,242,255,0.12);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            box-shadow: 0 0 14px rgba(0,242,255,0.2);
+        }
+        .mode-btn:hover:not(.active) {
+            border-color: rgba(0,242,255,0.4);
+            color: var(--neon-blue);
+        }
+        .mode-btn-icon {
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+
+        /* ========== KHU VỰC TẦN SỐ ========== */
+        .freq-section {
+            margin-bottom: 18px;
+            padding: 16px;
+            background: rgba(0,0,0,.18);
+            border: 1px solid rgba(255,229,0,.18);
+            border-radius: 18px;
+            animation: fadeIn 0.3s ease;
+        }
+        .freq-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .freq-title {
+            font-family: var(--font-orb);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--neon-yellow);
+        }
+        .freq-hint {
+            font-size: 0.62rem;
+            color: var(--text-mid);
+            font-style: italic;
+        }
+        .freq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .freq-field {
+            background: rgba(0,0,0,.2);
+            border-radius: 14px;
+            padding: 12px 10px 8px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: border-color 0.2s;
+        }
+        .freq-field:focus-within {
+            border-color: rgba(0,242,255,0.3);
+        }
+        .freq-label {
+            font-size: 0.62rem;
+            color: var(--text-mid);
+            font-family: var(--font-orb);
+            margin-bottom: 6px;
+        }
+        .freq-row {
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,.35);
+            border: 1px solid rgba(0,242,255,.18);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .freq-prefix {
+            padding: 8px 10px;
+            font-family: var(--font-orb);
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(0,0,0,.2);
+            color: var(--neon-yellow);
+            white-space: nowrap;
+        }
+        .freq-prefix.freq-a  { color: var(--neon-blue); }
+        .freq-prefix.freq-b  { color: var(--emerald); }
+        .freq-prefix.freq-ab { color: var(--neon-yellow); }
+        .freq-row input {
+            background: transparent;
+            border: none;
+            flex: 1;
+            padding: 8px 8px;
+            color: white;
+            outline: none;
+            font-size: 0.85rem;
+            min-width: 0;
+        }
+        .freq-auto-badge {
+            padding: 4px 8px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            background: rgba(16,185,129,0.08);
+            border-left: 1px solid rgba(16,185,129,0.2);
+            white-space: nowrap;
+            min-width: 48px;
+            text-align: center;
+        }
+        .freq-auto-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 0 4px;
+        }
+        .freq-auto-label {
+            font-size: 0.62rem;
+            color: var(--text-mid);
+            font-family: var(--font-orb);
+        }
+        .freq-auto-val {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--neon-pink);
+        }
+        .freq-reset-row {
+            margin-top: 12px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .freq-reset-btn {
+            font-family: var(--font-orb);
+            font-size: 0.65rem;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: rgba(255,45,120,0.06);
+            border: 1px solid rgba(255,45,120,0.3);
+            color: var(--neon-pink);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .freq-reset-btn:hover {
+            background: rgba(255,45,120,0.15);
+        }
+        @media (max-width: 500px) {
+            .freq-grid { grid-template-columns: 1fr; }
+            .mode-selector-wrap { gap: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -424,8 +604,79 @@
                     </div>
                 </div>
 
+                <!-- Chọn chế độ nhập -->
+                <div class="mode-selector-wrap">
+                    <span class="mode-selector-label">📥 Chế độ nhập:</span>
+                    <div class="mode-selector-btns">
+                        <button id="classic-mode-prob" class="mode-btn active" onclick="setClassicInputMode('prob')">
+                            <span class="mode-btn-icon">%</span> Xác suất
+                        </button>
+                        <button id="classic-mode-freq" class="mode-btn" onclick="setClassicInputMode('freq')">
+                            <span class="mode-btn-icon">#</span> Tần số
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chế độ nhập TẦN SỐ -->
+                <div id="classic-freq-mode" style="display:none;">
+                    <div class="freq-section">
+                        <div class="freq-header">
+                            <span class="freq-title">🔢 Nhập Số Phần Tử</span>
+                            <span class="freq-hint">Tự động tính xác suất từ tần số</span>
+                        </div>
+                        <div class="freq-grid">
+                            <div class="freq-field omega-f">
+                                <div class="freq-label">|Ω| — Không gian mẫu</div>
+                                <div class="freq-row">
+                                    <div class="freq-prefix">n(Ω)</div>
+                                    <input type="number" id="nOmega" placeholder="Tổng số phần tử" min="1" oninput="updateFromFreq()">
+                                </div>
+                            </div>
+                            <div class="freq-field fa-f">
+                                <div class="freq-label">Biến cố A</div>
+                                <div class="freq-row">
+                                    <div class="freq-prefix freq-a">n(A)</div>
+                                    <input type="number" id="nA" placeholder="Số pt thuộc A" min="0" oninput="updateFromFreq()">
+                                    <div class="freq-auto-badge" id="freq-pA-badge">—</div>
+                                </div>
+                                <div class="freq-auto-row">
+                                    <span class="freq-auto-label">→ P(A')</span>
+                                    <span class="freq-auto-val" id="freq-pNotA-badge">—</span>
+                                </div>
+                            </div>
+                            <div class="freq-field fb-f">
+                                <div class="freq-label">Biến cố B</div>
+                                <div class="freq-row">
+                                    <div class="freq-prefix freq-b">n(B)</div>
+                                    <input type="number" id="nB" placeholder="Số pt thuộc B" min="0" oninput="updateFromFreq()">
+                                    <div class="freq-auto-badge" id="freq-pB-badge">—</div>
+                                </div>
+                                <div class="freq-auto-row">
+                                    <span class="freq-auto-label">→ P(B')</span>
+                                    <span class="freq-auto-val" id="freq-pNotB-badge">—</span>
+                                </div>
+                            </div>
+                            <div class="freq-field fanb-f">
+                                <div class="freq-label">Giao A ∩ B</div>
+                                <div class="freq-row">
+                                    <div class="freq-prefix freq-ab">n(A∩B)</div>
+                                    <input type="number" id="nAnB" placeholder="Số pt thuộc A∩B" min="0" oninput="updateFromFreq()">
+                                    <div class="freq-auto-badge" id="freq-pAnB-badge">—</div>
+                                </div>
+                                <div class="freq-auto-row">
+                                    <span class="freq-auto-label">→ P(A∪B)</span>
+                                    <span class="freq-auto-val" id="freq-pAuB-badge">—</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="freq-reset-row">
+                            <button class="freq-reset-btn" onclick="resetFreqMode()">🔄 Xóa tần số</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Nhập liệu -->
-                <span class="sec-label blue">📥 Nhập Dữ Liệu (bất kỳ ô nào)</span>
+                <span class="sec-label blue" id="prob-input-label">📥 Nhập Dữ Liệu (bất kỳ ô nào)</span>
                 <div class="calc-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin:12px 0;">
                     <div class="calc-field"><label id="lbl-pA">P(A)</label><input type="number" id="pA" step="0.0001" min="0" max="1" placeholder="0" oninput="calculateClassic()"></div>
                     <div class="calc-field"><label id="lbl-pB">P(B)</label><input type="number" id="pB" step="0.0001" min="0" max="1" placeholder="0" oninput="calculateClassic()"></div>
@@ -434,25 +685,7 @@
                     <div class="calc-field"><label id="lbl-pNotB">P(B')</label><input type="number" id="pNotB" step="0.0001" min="0" max="1" placeholder="0" oninput="calculateClassic()"></div>
                     <div class="calc-field"><label id="lbl-pAuB">P(A∪B)</label><input type="number" id="pAuB" step="0.0001" min="0" max="1" placeholder="0" oninput="calculateClassic()"></div>
                 </div>
-                <!-- CHẾ ĐỘ NHẬP TẦN SỐ (THÊM MỚI) -->
-                <div class="mode-switch" style="margin-top: 15px; margin-bottom: 10px;">
-                    <div class="mode-btn active" onclick="setClassicInputMode('prob')" id="classic-mode-prob">📐 Nhập Xác Suất P(·)</div>
-                    <div class="mode-btn" onclick="setClassicInputMode('freq')" id="classic-mode-freq">📊 Nhập Tần Số n(·)</div>
-                </div>
 
-                <div id="classic-freq-mode" style="display:none;">
-                    <div style="background:rgba(0,0,0,0.2); border-radius:14px; padding:12px; margin-bottom:15px;">
-                        <div class="calc-grid">
-                            <div class="calc-field"><label>n(Ω) - Không gian mẫu</label><input type="number" id="nOmega" step="1" min="1" placeholder="Tổng số" value="0" oninput="updateFromFreq()"></div>
-                            <div class="calc-field"><label>n(A)</label><input type="number" id="nA" step="1" min="0" placeholder="0" value="0" oninput="updateFromFreq()"></div>
-                            <div class="calc-field"><label>n(B)</label><input type="number" id="nB" step="1" min="0" placeholder="0" value="0" oninput="updateFromFreq()"></div>
-                            <div class="calc-field"><label>n(A∩B)</label><input type="number" id="nAnB" step="1" min="0" placeholder="0" value="0" oninput="updateFromFreq()"></div>
-                        </div>
-                        <div style="background:rgba(0,242,255,0.05); border-radius:8px; padding:6px; text-align:center; font-size:0.6rem;">
-                            📌 Xác suất = Số phần tử / Tổng số
-                        </div>
-                    </div>
-                </div>
                 <!-- Kết quả -->
                 <div class="result-grid" id="classic-results">
                     <div class="result-box c-blue"><small>P(A)</small><span class="val c-blue" id="res-pA">—</span></div>
@@ -880,6 +1113,122 @@
             document.body.style.overflow = isOpen ? 'hidden' : '';
         }
 
+        // ========== CHẾ ĐỘ NHẬP TẦN SỐ ==========
+        let classicInputMode = 'prob';
+
+        function setClassicInputMode(mode) {
+            classicInputMode = mode;
+            document.getElementById('classic-mode-prob').classList.toggle('active', mode === 'prob');
+            document.getElementById('classic-mode-freq').classList.toggle('active', mode === 'freq');
+            const freqDiv = document.getElementById('classic-freq-mode');
+            const probLabel = document.getElementById('prob-input-label');
+            const calcGrid = document.querySelector('#tab-classic .calc-grid');
+            if (mode === 'freq') {
+                freqDiv.style.display = 'block';
+                probLabel.textContent = '🔗 Xác suất (tự động từ tần số — chỉ đọc)';
+                calcGrid.style.opacity = '0.55';
+                calcGrid.querySelectorAll('input').forEach(el => el.setAttribute('readonly', true));
+            } else {
+                freqDiv.style.display = 'none';
+                probLabel.textContent = '📥 Nhập Dữ Liệu (bất kỳ ô nào)';
+                calcGrid.style.opacity = '1';
+                calcGrid.querySelectorAll('input').forEach(el => el.removeAttribute('readonly'));
+            }
+        }
+
+        function updateFromFreq() {
+            const nO   = parseFloat(document.getElementById('nOmega').value) || 0;
+            const nA   = parseFloat(document.getElementById('nA').value) || 0;
+            const nB   = parseFloat(document.getElementById('nB').value) || 0;
+            const nAnB = parseFloat(document.getElementById('nAnB').value) || 0;
+
+            const fmt = (v) => isNaN(v) || !isFinite(v) ? '—' : v.toFixed(4);
+            const fmtPct = (v) => isNaN(v) || !isFinite(v) ? '—' : (v * 100).toFixed(2) + '%';
+
+            if (nO > 0) {
+                const pA   = nA   / nO;
+                const pB   = nB   / nO;
+                const pAnB = nAnB / nO;
+                const pNotA = 1 - pA;
+                const pNotB = 1 - pB;
+                const pAuB  = pA + pB - pAnB;
+
+                // Cập nhật badges hiển thị ngay trên từng ô
+                document.getElementById('freq-pA-badge').textContent    = fmtPct(pA);
+                document.getElementById('freq-pNotA-badge').textContent = fmtPct(pNotA);
+                document.getElementById('freq-pB-badge').textContent    = fmtPct(pB);
+                document.getElementById('freq-pNotB-badge').textContent = fmtPct(pNotB);
+                document.getElementById('freq-pAnB-badge').textContent  = fmtPct(pAnB);
+                document.getElementById('freq-pAuB-badge').textContent  = fmtPct(pAuB);
+
+                // Đẩy vào ô xác suất bên dưới
+                document.getElementById('pA').value    = pA.toFixed(6);
+                document.getElementById('pB').value    = pB.toFixed(6);
+                document.getElementById('pAnB').value  = pAnB.toFixed(6);
+                document.getElementById('pNotA').value = pNotA.toFixed(6);
+                document.getElementById('pNotB').value = pNotB.toFixed(6);
+                document.getElementById('pAuB').value  = pAuB.toFixed(6);
+
+                calculateClassic();
+            } else {
+                // Reset badges
+                ['freq-pA-badge','freq-pNotA-badge','freq-pB-badge','freq-pNotB-badge','freq-pAnB-badge','freq-pAuB-badge']
+                    .forEach(id => { document.getElementById(id).textContent = '—'; });
+            }
+        }
+
+        function resetFreqMode() {
+            ['nOmega','nA','nB','nAnB'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            ['freq-pA-badge','freq-pNotA-badge','freq-pB-badge','freq-pNotB-badge','freq-pAnB-badge','freq-pAuB-badge']
+                .forEach(id => { document.getElementById(id).textContent = '—'; });
+            ['pA','pB','pAnB','pNotA','pNotB','pAuB'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            calculateClassic();
+        }
+
+        // Auto-complement khi nhập xác suất (P(A) → P(A') và ngược lại)
+        document.getElementById('pA')?.addEventListener('input', function() {
+            if (classicInputMode === 'prob') {
+                const v = parseFloat(this.value);
+                if (!isNaN(v) && v >= 0 && v <= 1) {
+                    const notAEl = document.getElementById('pNotA');
+                    if (!notAEl.matches(':focus')) notAEl.value = (1 - v).toFixed(4);
+                }
+            }
+        });
+        document.getElementById('pNotA')?.addEventListener('input', function() {
+            if (classicInputMode === 'prob') {
+                const v = parseFloat(this.value);
+                if (!isNaN(v) && v >= 0 && v <= 1) {
+                    const aEl = document.getElementById('pA');
+                    if (!aEl.matches(':focus')) aEl.value = (1 - v).toFixed(4);
+                }
+            }
+        });
+        document.getElementById('pB')?.addEventListener('input', function() {
+            if (classicInputMode === 'prob') {
+                const v = parseFloat(this.value);
+                if (!isNaN(v) && v >= 0 && v <= 1) {
+                    const notBEl = document.getElementById('pNotB');
+                    if (!notBEl.matches(':focus')) notBEl.value = (1 - v).toFixed(4);
+                }
+            }
+        });
+        document.getElementById('pNotB')?.addEventListener('input', function() {
+            if (classicInputMode === 'prob') {
+                const v = parseFloat(this.value);
+                if (!isNaN(v) && v >= 0 && v <= 1) {
+                    const bEl = document.getElementById('pB');
+                    if (!bEl.matches(':focus')) bEl.value = (1 - v).toFixed(4);
+                }
+            }
+        });
+
         // Lưu tên biến cố
         ['name-A','name-B','name-notA','name-notB'].forEach(id => {
             const el = document.getElementById(id);
@@ -892,14 +1241,15 @@
         
         calculateClassic();
         calculateBayes();
+
         // Kiểm tra xem có tab cần mở từ trang chủ không
-    const openTab = sessionStorage.getItem('openTab');
-    if (openTab) {
-        sessionStorage.removeItem('openTab');
-        if (typeof switchTab === 'function') {
-            setTimeout(() => switchTab(openTab), 100);
+        const openTab = sessionStorage.getItem('openTab');
+        if (openTab) {
+            sessionStorage.removeItem('openTab');
+            if (typeof switchTab === 'function') {
+                setTimeout(() => switchTab(openTab), 100);
+            }
         }
-    }
     </script>
 </body>
-</html
+</html>
